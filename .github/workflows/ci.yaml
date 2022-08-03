@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18]
+        node-version: [18.x]
     name: Use Node.js ${{ matrix.node-version }}
     steps:
       - uses: actions/checkout@v3
@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [14.16, 16, 18]
+        node: [14.16, 16.x, 18.x]
     steps:
       - uses: actions/checkout@v3
       - name: Install pnpm
