@@ -1,11 +1,13 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/node': ^18.6.3
   '@typescript-eslint/eslint-plugin': ^5.32.0
   '@typescript-eslint/parser': ^5.32.0
   eslint: ^8.21.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-prettier: ^4.2.1
+  jiti: ^1.14.0
   npm-run-all: ^4.1.5
   prettier: ^2.7.1
   typescript: ^4.7.4
@@ -13,11 +15,13 @@ specifiers:
   yorkie: ^2.0.0
 
 devDependencies:
+  '@types/node': 18.6.3
   '@typescript-eslint/eslint-plugin': 5.32.0_iosr3hrei2tubxveewluhu5lhy
   '@typescript-eslint/parser': 5.32.0_qugx7qdu5zevzvxaiqyxfiwquq
   eslint: 8.21.0
   eslint-config-prettier: 8.5.0_eslint@8.21.0
   eslint-plugin-prettier: 4.2.1_h62lvancfh4b7r6zn2dgodrh5e
+  jiti: 1.14.0
   npm-run-all: 4.1.5
   prettier: 2.7.1
   typescript: 4.7.4

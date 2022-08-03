@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18]
+    name: Use Node.js ${{ matrix.node-version }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.4.0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'pnpm'
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
+      - name: Lint
+        run: pnpm lint
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [14.16, 16, 18]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 6.23.6
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'pnpm'
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
+      - name: Test
+        run: pnpm test
+  edge-release:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.4.0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'pnpm'
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
+      - name: Build
+        run: pnpm build
+      - name: Release Edge
+        if: |
+          github.event_name == 'push' &&
+          !contains(github.event.head_commit.message, '[skip-release]') &&
+          !contains(github.event.head_commit.message, 'chore') &&
+          !contains(github.event.head_commit.message, 'docs')
+        run: ./scripts/release-edge.sh
+        env:
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
