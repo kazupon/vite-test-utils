@@ -1,3 +1,4 @@
-export function say() {
-  console.log('I was born')
+export function say(msg: string) {
+  console.log(msg)
+  return msg
 }
