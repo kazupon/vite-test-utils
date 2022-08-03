@@ -5,5 +5,6 @@ export default defineBuildConfig({
   rollup: {
     emitCJS: true
   },
-  outDir: './dist'
+  outDir: './dist',
+  externals: ['playwright', 'playwright-core']
 })
