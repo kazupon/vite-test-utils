@@ -1,0 +1,36 @@
+- name: feature
+  description: Includes new features
+  color: 'ffff00'
+- name: bug
+  description: Includes new features
+  color: 'ee0701'
+- name: improvement
+  description: Includes backwards-compatible fixes
+  color: '1d76db'
+- name: breaking
+  description: Includes backwards-incompatible fixes
+  color: 'b60205'
+- name: refactoring
+  description: A code change that neither fixes a bug nor adds a feature
+  color: 'fbca04'
+- name: security
+  description: Security fixes
+  color: 'b60205'
+- name: documentation
+  description: Includes documetation fixes
+  color: '5319e7'
+- name: example
+  description: Includes example and demo code fixes
+  color: 'db0875'
+- name: deprecated
+  description: Includes deprecate fixes
+  color: 'f7ffa8'
+- name: performance
+  description: Includes performance fixes
+  color: 'cc317c'
+- name: i18n
+  description: Includes internationalization fixes
+  color: 'ffd412'
+- name: a11y
+  description: Inlucdes accessibility fixes
+  color: '0000ff'
