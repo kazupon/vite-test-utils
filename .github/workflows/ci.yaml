@@ -51,7 +51,8 @@ jobs:
         run: pnpm test
   edge-release:
     needs:
-      - build
+      - lint
+      - test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
