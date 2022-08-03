@@ -48,6 +48,7 @@
     "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
+    "defu": "^6.0.0",
     "ohmyfetch": "^0.4.18"
   },
   "devDependencies": {
