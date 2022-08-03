@@ -1,3 +1,12 @@
+/**
+ * browser module, forked from the below:
+ * - original repository url: https://github.com/nuxt/framework
+ * - npm package name: `@nuxt/test-utils`
+ * - code url: https://github.com/nuxt/framework/blob/main/packages/test-utils/src/browser.ts
+ * - author: Nuxt Framework Team
+ * - license: MIT
+ */
+
 import { useTestContext } from './context'
 
 import type { Browser, BrowserContextOptions } from 'playwright'
