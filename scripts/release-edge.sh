@@ -24,3 +24,4 @@ fi
 
 # Release packages
 echo "Publishing"
+npm publish
