@@ -7,9 +7,12 @@ let currentContext: TestContext | undefined
 
 export function createTestContext(options: TestOptions = {}): TestContext {
   const _options = defu(options, {
-    rootDir: resolve(process.cwd(), 'test')
+    rootDir: resolve(process.cwd(), 'test'),
+    browserOptions: {
+      type: 'chromium'
+    }
   })
-  return setTestContext({ options: _options }) as TestContext
+  return setTestContext({ options: _options as TestOptions }) as TestContext
 }
 
 export function setTestContext(ctx: TestContext | undefined) {

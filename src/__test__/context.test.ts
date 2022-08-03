@@ -13,13 +13,19 @@ afterAll(() => {
 test('basic', () => {
   // create test context
   const ctx = createTestContext({
-    rootDir: '.'
+    rootDir: '.',
+    browserOptions: {
+      type: 'firefox',
+      launch: { headless: true }
+    }
   })
   expect(ctx.options.rootDir).toBe('.')
+  expect(ctx.options.browserOptions).toEqual({ type: 'firefox', launch: { headless: true } })
 
   // call useTestContext()
   const ctx2 = useTestContext()
   expect(ctx2.options.rootDir).toBe('.')
+  expect(ctx2.options.browserOptions).toEqual({ type: 'firefox', launch: { headless: true } })
   expect(ctx).toEqual(ctx2)
 
   // clear test context in context module
@@ -30,7 +36,9 @@ test('basic', () => {
 test('default options', () => {
   const ctx = createTestContext()
   expect(ctx.options.rootDir).toBe('/path/to/test')
+  expect(ctx.options.browserOptions).toEqual({ type: 'chromium' })
 
   const ctx2 = useTestContext()
   expect(ctx2.options.rootDir).toBe('/path/to/test')
+  expect(ctx2.options.browserOptions).toEqual({ type: 'chromium' })
 })
