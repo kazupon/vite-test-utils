@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@nexhome/yorkie': ^2.0.8
   '@types/node': ^18.6.3
   '@typescript-eslint/eslint-plugin': ^5.32.0
   '@typescript-eslint/parser': ^5.32.0
@@ -13,9 +14,9 @@ specifiers:
   prettier: ^2.7.1
   typescript: ^4.7.4
   unbuild: ^0.7.6
-  yorkie: ^2.0.0
 
 devDependencies:
+  '@nexhome/yorkie': 2.0.8
   '@types/node': 18.6.3
   '@typescript-eslint/eslint-plugin': 5.32.0_iosr3hrei2tubxveewluhu5lhy
   '@typescript-eslint/parser': 5.32.0_qugx7qdu5zevzvxaiqyxfiwquq
@@ -28,7 +29,6 @@ devDependencies:
   prettier: 2.7.1
   typescript: 4.7.4
   unbuild: 0.7.6
-  yorkie: 2.0.0
 
 packages:
 
@@ -319,6 +319,17 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
+    dev: true
+
+  /@nexhome/yorkie/2.0.8:
+    resolution: {integrity: sha512-sTu6CvLQcW07lx052erTVGEeQRy3/9nZmBq+ouThZ2gakLimX2ulKTgssu/lnE1xcQcDVVHCcgzsGJPcoQgzUQ==}
+    engines: {node: '>=4'}
+    requiresBuild: true
+    dependencies:
+      execa: 0.8.0
+      is-ci: 1.2.1
+      normalize-path: 1.0.0
+      strip-indent: 2.0.0
     dev: true
 
   /@nodelib/fs.scandir/2.1.5:
@@ -2870,15 +2881,4 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-    dev: true
-
-  /yorkie/2.0.0:
-    resolution: {integrity: sha512-jcKpkthap6x63MB4TxwCyuIGkV0oYP/YRyuQU5UO0Yz/E/ZAu+653/uov+phdmO54n6BcvFRyyt0RRrWdN2mpw==}
-    engines: {node: '>=4'}
-    requiresBuild: true
-    dependencies:
-      execa: 0.8.0
-      is-ci: 1.2.1
-      normalize-path: 1.0.0
-      strip-indent: 2.0.0
     dev: true
