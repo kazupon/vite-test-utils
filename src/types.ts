@@ -6,7 +6,7 @@ export interface TestContext {
 }
 
 export interface TestOptions {
-  rootDir?: string
+  testDir?: string
   browserOptions?: {
     type?: 'chromium' | 'firefox' | 'webkit'
     launch?: LaunchOptions
