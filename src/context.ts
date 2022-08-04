@@ -16,7 +16,10 @@ let currentContext: TestContext | undefined
 
 export function createTestContext(options: TestOptions = {}): TestContext {
   const _options = defu(options, {
+    fixture: 'fixture',
     testDir: resolve(process.cwd(), 'test'),
+    configFile: 'vite.config',
+    viteConfig: {},
     browserOptions: {
       type: 'chromium'
     }
