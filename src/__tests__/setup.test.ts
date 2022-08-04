@@ -7,8 +7,8 @@ await setup({
   rootDir: fileURLToPath(new URL(`./fixtures/server`, import.meta.url))
 })
 
-test.skip('basic', async () => {
+test('basic', async () => {
   const page = await createPage()
   await page.goto(url('/'))
-  console.log(await page.content())
+  expect(await page.content()).toContain(`<title>Vite + TS</title>`)
 })

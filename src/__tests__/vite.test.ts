@@ -18,7 +18,7 @@ test('resolve config with "options.rootDir"', async () => {
 
 test('resolve config with "options.testDir" and "optiosn.fixture"', async () => {
   const ctx = createTestContext({
-    testDir: 'src/__test__',
+    testDir: 'src/__tests__',
     fixture: 'fixtures/vite'
   })
   await loadFixture()
@@ -27,9 +27,26 @@ test('resolve config with "options.testDir" and "optiosn.fixture"', async () => 
 
 test('resolve config with "options.configFile"', async () => {
   const ctx = createTestContext({
-    testDir: 'src/__test__',
+    testDir: 'src/__tests__',
     fixture: 'fixtures/vite',
     configFile: 'myvite.config'
+  })
+  await loadFixture()
+  expect(ctx.vite).toMatchObject(CHECK_CONFIG)
+})
+
+test('commonjs package', async () => {
+  const ctx = createTestContext({
+    rootDir: fileURLToPath(new URL(`./fixtures/cjs`, import.meta.url))
+  })
+  await loadFixture()
+  expect(ctx.vite).toMatchObject(CHECK_CONFIG)
+})
+
+test('cjs config file', async () => {
+  const ctx = createTestContext({
+    testDir: 'src/__tests__',
+    fixture: 'fixtures/cjs-config'
   })
   await loadFixture()
   expect(ctx.vite).toMatchObject(CHECK_CONFIG)

@@ -36,7 +36,11 @@ function isObject(value: unknown): value is Record<string, any> {
   return Object.prototype.toString.call(value) === '[object Object]'
 }
 
-const dynamicImportFunction = new Function('file', 'return import(file)')
+const _require = createRequire(import.meta.url)
+
+async function dynamicImportCompatibility(fileUrl: string, isESM: boolean) {
+  return isESM ? import(fileUrl) : new Function('file', 'return import(file)')(fileUrl)
+}
 
 export async function loadConfig(
   configEnv: ConfigEnv,
@@ -223,8 +227,6 @@ interface NodeModuleWithCompile extends NodeModule {
   _compile(code: string, filename: string): any
 }
 
-const _require = createRequire(import.meta.url)
-
 async function loadConfigFromBundledFile(
   fileName: string,
   bundledCode: string,
@@ -233,6 +235,7 @@ async function loadConfigFromBundledFile(
   // for esm, before we can register loaders without requiring users to run node
   // with --experimental-loader themselves, we have to do a hack here:
   // write it to disk, load it with native Node ESM, then delete the file.
+  DEBUG('loadConfigFromBundledFile: ', fileName, isESM)
   if (isESM) {
     const fileBase = `${fileName}.timestamp-${Date.now()}`
     const fileNameTmp = `${fileBase}.mjs`
@@ -240,7 +243,7 @@ async function loadConfigFromBundledFile(
     await fs.writeFile(fileNameTmp, bundledCode)
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return await dynamicImportFunction(fileUrl).then((mod: any) => mod.default || mod)
+      return await dynamicImportCompatibility(fileUrl, isESM).then((mod: any) => mod.default || mod)
     } finally {
       await fs.unlink(fileNameTmp)
     }

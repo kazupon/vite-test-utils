@@ -1,0 +1,5 @@
+{
+  "name": "vite-esm-fixture1",
+  "private": true,
+  "type": "module"
+}
