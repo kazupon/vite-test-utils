@@ -8,6 +8,7 @@
  */
 
 import { useTestContext } from './context'
+import { url } from './server'
 import { dynamicImport } from './utils'
 
 import type { Browser, BrowserContextOptions } from 'playwright'
@@ -43,5 +44,11 @@ async function getBrowser() {
  */
 export async function createPage(path?: string, options?: BrowserContextOptions) {
   const browser = await getBrowser()
-  return await browser.newPage(options)
+
+  const page = await browser.newPage(options)
+  if (path) {
+    await page.goto(url(path))
+  }
+
+  return page
 }
