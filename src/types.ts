@@ -1,6 +1,9 @@
 import type { Browser, LaunchOptions } from 'playwright'
 import type { UserConfig, ViteDevServer } from 'vite'
 
+/**
+ * The Test Context that is used in test utils
+ */
 export interface TestContext {
   /**
    * The options that is specified `setup` function
@@ -28,32 +31,53 @@ export interface TestContext {
   url?: string
 }
 
+/**
+ * The Test Options that is used in `setup`
+ */
 export interface TestOptions {
   /**
    * The fixture directory path that is relative from `testDir`.
+   *
+   * @default 'fixture'
    */
   fixture?: string
   /**
    * The test directory path that is current run by utils.
+   *
+   * @default `process.cwd() + 'test'`
    */
   testDir?: string
   /**
    * The root directory path that is current run by utils. It’s resolved in priority over that `testDir`
+   *
+   * @default `process.cwd()`
    */
   rootDir?: string
   /**
    * The vite config filename. It's used with `rootDir` or `testDir`
+   *
+   * @default 'vite.config'
    */
   configFile?: string
   /**
    * The vite config that is overrided the config resolved by utils.
+   *
+   * @default {}
    */
   viteConfig?: UserConfig
   /**
    * The playwright browser options.
    */
   browserOptions?: {
+    /**
+     * The browser type.
+     *
+     * @default 'chromium'
+     */
     type?: 'chromium' | 'firefox' | 'webkit'
+    /**
+     * The browser launch options.
+     */
     launch?: LaunchOptions
   }
 }

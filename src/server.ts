@@ -96,6 +96,12 @@ export async function stopServer() {
   }
 }
 
+/**
+ * The url concatenating function
+ *
+ * @param {string} path - The path that is concatenated to the url
+ * @returns {string} The url with concating the path
+ */
 export function url(path: string) {
   const ctx = useTestContext()
   if (!ctx.url) {
@@ -104,11 +110,30 @@ export function url(path: string) {
   return ctx.url + path
 }
 
+/**
+ * Low level fetch API
+ *
+ * @remarks
+ * This function is delegated with {@link ohmyfetch https://github.com/unjs/ohmyfetch}
+ *
+ * @param {string} path - The path of fetch request
+ * @param {any} [options] - The options of fetch request, optional
+ * @returns {Response} The response of fetch request
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function fetch(path: string, options?: any) {
   return _fetch(url(path), options)
 }
 
+/**
+ * Hight level fetch API
+ *
+ * @remarks
+ * This function is delegated with {@link ohmyfetch https://github.com/unjs/ohmyfetch}
+ *
+ * @param {string} path - The path of fetch request
+ * @param {FetchOptions} [options] - The options of fetch request, optional
+ */
 export function $fetch(path: string, options?: FetchOptions) {
   return _$fetch(url(path), options)
 }

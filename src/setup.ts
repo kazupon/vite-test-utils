@@ -53,6 +53,16 @@ function createTest(options: TestOptions = {}) {
   }
 }
 
+/**
+ * The test setup function
+ *
+ * @remarks
+ * This function will be hooked with using setup/teardown of vitest.
+ * In setup hook, start the vite dev server, create a browser instance of playwright, and load the vite app fixture.
+ * In the teardown hook, terminate the vite dev server and close the browser instance of playwright.
+ *
+ * @param {TestOptions} [options] - Optional, test Options that is used in `setup`, about details @see TestOptions
+ */
 export async function setup(options: TestOptions = {}) {
   const vitest = await dynamicImport<typeof import('vitest')>('vitest')
   const hooks = createTest(options)

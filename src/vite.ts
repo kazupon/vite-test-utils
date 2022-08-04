@@ -3,6 +3,7 @@ import { resolve } from 'node:path'
 import { useTestContext } from './context'
 import { mergeConfig } from 'vite'
 import { isExists, loadConfig } from './utils'
+import pc from 'picocolors'
 import createDebug from 'debug'
 
 const DEBUG = createDebug('vite-test-utils:vite')
@@ -61,9 +62,13 @@ async function resolveRootDirAndConfig(): Promise<[string, string] | null> {
   }
 
   console.warn(
-    'cannot not resolve project dir and config. (Please make sure `options.rootDir`, `options.config`, `options.testDir`, `options.fixture` configration)'
+    pc.yellow(
+      pc.bold(
+        'cannot not resolve project dir and config. (Please make sure `options.rootDir`, `options.config`, `options.testDir`, `options.fixture` configration)'
+      )
+    )
   )
-  console.warn('Use `options.viteConfig` as configuration.')
+  console.warn(pc.yellow(pc.bold('Use `options.viteConfig` as configuration.')))
 
   return null
 }
@@ -111,6 +116,7 @@ export async function loadFixture() {
     ctx.vite = mergeConfig(loadedConfig, ctx.options.viteConfig!)
     DEBUG('loadFixture: final vite config -> ', ctx.vite)
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const rootDir = ctx.options.rootDir!
     DEBUG('loadFixture: rootDir -> ', rootDir)
 

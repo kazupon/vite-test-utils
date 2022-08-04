@@ -8,6 +8,7 @@
  */
 
 import { useTestContext } from './context'
+import { url } from './server'
 import { dynamicImport } from './utils'
 
 import type { Browser, BrowserContextOptions } from 'playwright'
@@ -35,7 +36,19 @@ async function getBrowser() {
   return ctx.browser as Browser
 }
 
+/**
+ *
+ * @param {string} [path] - The path to the page, optional
+ * @param {BrowserContextOptions} [options] - The browser context options, optional
+ * @returns {Page} A page instance
+ */
 export async function createPage(path?: string, options?: BrowserContextOptions) {
   const browser = await getBrowser()
-  return await browser.newPage(options)
+
+  const page = await browser.newPage(options)
+  if (path) {
+    await page.goto(url(path))
+  }
+
+  return page
 }
