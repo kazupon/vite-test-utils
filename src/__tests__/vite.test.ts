@@ -52,6 +52,15 @@ test('cjs config file', async () => {
   expect(ctx.vite).toMatchObject(CHECK_CONFIG)
 })
 
+test('no vite config case', async () => {
+  const root = fileURLToPath(new URL(`./fixtures/no-config`, import.meta.url))
+  const ctx = createTestContext({
+    rootDir: root
+  })
+  await loadFixture()
+  expect(ctx.vite).toMatchObject({ root })
+})
+
 test('override with "options.viteConfig"', async () => {
   const ctx = createTestContext({
     rootDir: fileURLToPath(new URL(`./fixtures/vite`, import.meta.url)),

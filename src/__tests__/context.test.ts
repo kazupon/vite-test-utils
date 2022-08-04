@@ -14,6 +14,7 @@ test('basic', () => {
   // create test context
   const ctx = createTestContext({
     fixture: 'myFixture',
+    rootDir: '/',
     testDir: '.',
     configFile: 'myVite.config',
     viteConfig: {
@@ -27,6 +28,7 @@ test('basic', () => {
     }
   })
   expect(ctx.options.fixture).toBe('myFixture')
+  expect(ctx.options.rootDir).toBe('/')
   expect(ctx.options.testDir).toBe('.')
   expect(ctx.options.configFile).toBe('myVite.config')
   expect(ctx.options.viteConfig).toEqual({ build: { outDir: './output' } })
@@ -35,6 +37,7 @@ test('basic', () => {
   // call useTestContext()
   const ctx2 = useTestContext()
   expect(ctx2.options.fixture).toBe('myFixture')
+  expect(ctx2.options.rootDir).toBe('/')
   expect(ctx2.options.testDir).toBe('.')
   expect(ctx2.options.configFile).toBe('myVite.config')
   expect(ctx2.options.viteConfig).toEqual({ build: { outDir: './output' } })
@@ -49,6 +52,7 @@ test('basic', () => {
 test('default options', () => {
   const ctx = createTestContext()
   expect(ctx.options.fixture).toBe('fixture')
+  expect(ctx.options.rootDir).toBe('/path/to')
   expect(ctx.options.testDir).toBe('/path/to/test')
   expect(ctx.options.configFile).toBe('vite.config')
   expect(ctx.options.viteConfig).toEqual({})
@@ -56,6 +60,7 @@ test('default options', () => {
 
   const ctx2 = useTestContext()
   expect(ctx2.options.fixture).toBe('fixture')
+  expect(ctx2.options.rootDir).toBe('/path/to')
   expect(ctx2.options.testDir).toBe('/path/to/test')
   expect(ctx2.options.configFile).toBe('vite.config')
   expect(ctx2.options.viteConfig).toEqual({})
