@@ -20,7 +20,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7.4.0
+          version: 7.8.0
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [14.16, 16.x, 18.x]
+        node: [14.18, 16.x, 18.x]
     steps:
       - uses: actions/checkout@v3
       - name: Install pnpm
