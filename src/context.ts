@@ -15,9 +15,11 @@ import type { TestContext, TestOptions } from './types'
 let currentContext: TestContext | undefined
 
 export function createTestContext(options: TestOptions = {}): TestContext {
+  const cwd = process.cwd()
   const _options = defu(options, {
+    rootDir: cwd,
     fixture: 'fixture',
-    testDir: resolve(process.cwd(), 'test'),
+    testDir: resolve(cwd, 'test'),
     configFile: 'vite.config',
     viteConfig: {},
     browserOptions: {

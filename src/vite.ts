@@ -21,12 +21,13 @@ const DEFAULT_CONFIG_FILES = [
 ]
 
 async function resolveViteConfig(dir: string, config = 'vite.config.ts'): Promise<[boolean, string]> {
-  let found = false
+  let hasDir = false
   let _config = ''
 
   if (!(await isExists(dir))) {
-    return [found, _config]
+    return [hasDir, _config]
   }
+  hasDir = true
 
   const configFiles = [...DEFAULT_CONFIG_FILES, config]
   DEBUG('resolveViteConfig: configFiles -> ', configFiles)
@@ -34,16 +35,15 @@ async function resolveViteConfig(dir: string, config = 'vite.config.ts'): Promis
   for (const config of configFiles) {
     if (await isExists(resolve(dir, config))) {
       _config = config
-      found = true
       break
     }
   }
 
-  DEBUG('resolveViteConfig: ', dir, found, _config)
-  return [found, _config]
+  DEBUG('resolveViteConfig: ', dir, hasDir, _config)
+  return [hasDir, _config]
 }
 
-async function resolveRootDirAndConfig() {
+async function resolveRootDirAndConfig(): Promise<[string, string] | null> {
   const { options } = useTestContext()
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -52,60 +52,81 @@ async function resolveRootDirAndConfig() {
 
   for (const dir of dirs) {
     if (dir) {
-      const [found, config] = await resolveViteConfig(dir, options.configFile)
-      DEBUG('resolveRootDirAndConfig: ', dir, found, config)
-      if (found && config) {
+      const [hasDir, config] = await resolveViteConfig(dir, options.configFile)
+      DEBUG('resolveRootDirAndConfig: ', dir, hasDir, config)
+      if (hasDir && config) {
         return [dir, config]
       }
     }
   }
 
-  throw new Error(
-    'Invalid vite app. (Please explicitly set `options.rootDir` or `options.config` pointing to a valid vite app)'
+  console.warn(
+    'cannot not resolve project dir and config. (Please make sure `options.rootDir`, `options.config`, `options.testDir`, `options.fixture` configration)'
   )
+  console.warn('Use `options.viteConfig` as configuration.')
+
+  return null
 }
 
 export async function loadFixture() {
   const ctx = useTestContext()
 
-  const [rootDir, configFile] = await resolveRootDirAndConfig()
-  ctx.options.rootDir = rootDir
-  DEBUG('loadFixture: rootDir -> ', rootDir)
-  DEBUG('loadFixture: configFile -> ', configFile)
+  const resolveResult = await resolveRootDirAndConfig()
+  if (Array.isArray(resolveResult)) {
+    const [rootDir, configFile] = resolveResult
+    DEBUG('loadFixture: rootDir -> ', rootDir)
+    DEBUG('loadFixture: configFile -> ', configFile)
 
-  const randomId = Math.random().toString(36).slice(2, 8)
-  const buildDir = resolve(ctx.options.rootDir, '.vite', randomId)
-  DEBUG('loadFixture: buildDir -> ', buildDir)
+    const randomId = Math.random().toString(36).slice(2, 8)
+    const buildDir = resolve(rootDir, '.vite', randomId)
+    DEBUG('loadFixture: buildDir -> ', buildDir)
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  Object.assign(ctx.options.viteConfig!, {
-    root: rootDir,
-    build: {
-      outDir: buildDir
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    Object.assign(ctx.options.viteConfig!, {
+      root: rootDir,
+      build: {
+        outDir: buildDir
+      }
+    })
+    DEBUG('loadFixture: viteConfig -> ', ctx.options.viteConfig)
+
+    const loadResult = await loadConfig(
+      {
+        mode: 'development', // TODO:
+        command: 'build' // TODO:
+      },
+      {
+        configFile,
+        configRoot: rootDir
+      }
+    )
+    if (!loadResult) {
+      throw new Error(`not found vite config file`)
     }
-  })
-  DEBUG('loadFixture: viteConfig -> ', ctx.options.viteConfig)
+    DEBUG('loadFixture: loadConfig result -> ', loadResult)
 
-  const result = await loadConfig(
-    {
-      mode: 'development', // TODO:
-      command: 'build' // TODO:
-    },
-    {
-      configFile,
-      configRoot: rootDir
-    }
-  )
-  if (!result) {
-    throw new Error(`not found vite config file`)
+    const loadedConfig = loadResult ? loadResult.config : {}
+    DEBUG('loadFixture: loadedConfig -> ', loadedConfig)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    ctx.vite = mergeConfig(loadedConfig, ctx.options.viteConfig!)
+    DEBUG('loadFixture: final vite config -> ', ctx.vite)
+  } else {
+    const rootDir = ctx.options.rootDir!
+    DEBUG('loadFixture: rootDir -> ', rootDir)
+
+    const randomId = Math.random().toString(36).slice(2, 8)
+    const buildDir = resolve(rootDir, '.vite', randomId)
+    DEBUG('loadFixture: buildDir -> ', buildDir)
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    ctx.vite = mergeConfig(ctx.options.viteConfig!, {
+      root: rootDir,
+      build: {
+        outDir: buildDir
+      }
+    })
+    DEBUG('loadFixture: final vite config -> ', ctx.vite)
   }
-  DEBUG('loadFixture: loadConfig result -> ', result)
-
-  const loadedConfig = result ? result.config : {}
-  DEBUG('loadFixture: loadedConfig -> ', loadedConfig)
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  ctx.vite = mergeConfig(loadedConfig, ctx.options.viteConfig!)
-  DEBUG('loadFixture: final vite config -> ', ctx.vite)
 
   // TODO:
   // await fs.mkdir(buildDir, { recursive: true })
