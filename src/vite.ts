@@ -107,6 +107,5 @@ export async function loadFixture() {
   ctx.vite = mergeConfig(loadedConfig, ctx.options.viteConfig!)
   DEBUG('loadFixture: final vite config -> ', ctx.vite)
 
-  const ret = await fs.mkdir(buildDir, { recursive: true })
-  console.log('loadFixture: mkdir -> ', ret)
+  await fs.mkdir(buildDir, { recursive: true })
 }

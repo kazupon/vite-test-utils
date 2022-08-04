@@ -8,22 +8,14 @@
  */
 
 import { useTestContext } from './context'
+import { dynamicImport } from './utils'
 
 import type { Browser, BrowserContextOptions } from 'playwright'
 
 export async function createBrowser() {
   const ctx = useTestContext()
 
-  let playwright: typeof import('playwright')
-  try {
-    playwright = await import(String('playwright'))
-  } catch {
-    /* istanbul ignore next */
-    throw new Error(`
-      The dependency 'playwright' not found.
-      Please run 'yarn add --dev playwright' or 'npm install --save-dev playwright' or 'pnpm add --save-dev playwright'
-    `)
-  }
+  const playwright = await dynamicImport<typeof import('playwright')>('playwright')
 
   /* eslint-disable @typescript-eslint/no-non-null-assertion */
   const { type, launch } = ctx.options.browserOptions!

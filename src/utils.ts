@@ -19,12 +19,24 @@ export async function isExists(path: string) {
   }
 }
 
+export async function dynamicImport<T>(module: string): Promise<T> {
+  try {
+    return import(String(module))
+  } catch {
+    /* istanbul ignore next */
+    throw new Error(`
+      The dependency '${module}' not found.
+      Please run 'yarn add --dev ${module}' or 'npm install --save-dev ${module}' or 'pnpm add --save-dev ${module}'
+    `)
+  }
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isObject(value: unknown): value is Record<string, any> {
   return Object.prototype.toString.call(value) === '[object Object]'
 }
 
-const dynamicImport = new Function('file', 'return import(file)')
+const dynamicImportFunction = new Function('file', 'return import(file)')
 
 export async function loadConfig(
   configEnv: ConfigEnv,
@@ -228,7 +240,7 @@ async function loadConfigFromBundledFile(
     await fs.writeFile(fileNameTmp, bundledCode)
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return await dynamicImport(fileUrl).then((mod: any) => mod.default || mod)
+      return await dynamicImportFunction(fileUrl).then((mod: any) => mod.default || mod)
     } finally {
       await fs.unlink(fileNameTmp)
     }
