@@ -1,5 +1,5 @@
 import type { Browser, LaunchOptions } from 'playwright'
-import type { UserConfig } from 'vite'
+import type { UserConfig, ViteDevServer } from 'vite'
 
 export interface TestContext {
   /**
@@ -14,6 +14,18 @@ export interface TestContext {
    * The Vite config that is resolved by this utils
    */
   vite?: UserConfig
+  /**
+   * The Vite server instance
+   */
+  server?: ViteDevServer
+  /**
+   * The port that is opened in server
+   */
+  port?: number
+  /**
+   * The url of the server
+   */
+  url?: string
 }
 
 export interface TestOptions {

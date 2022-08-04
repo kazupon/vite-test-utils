@@ -6,7 +6,7 @@ import { build } from 'esbuild'
 import { normalizePath } from 'vite'
 import createDebug from 'debug'
 
-import type { UserConfigExport, ConfigEnv, UserConfig, LogLevel } from 'vite'
+import type { UserConfigExport, ConfigEnv, UserConfig } from 'vite'
 
 const DEBUG = createDebug('vite-test-utils:utils')
 
@@ -207,6 +207,7 @@ async function bundleConfigFile(fileName: string, isESM: boolean): Promise<{ cod
  */
 
 interface NodeModuleWithCompile extends NodeModule {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _compile(code: string, filename: string): any
 }
 
@@ -237,6 +238,7 @@ async function loadConfigFromBundledFile(
     const extension = extname(fileName)
     const realFileName = await fs.realpath(fileName)
     const loaderExt = extension in _require.extensions ? extension : '.js'
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const defaultLoader = _require.extensions[loaderExt]!
     _require.extensions[loaderExt] = (module: NodeModule, filename: string) => {
       if (filename === realFileName) {

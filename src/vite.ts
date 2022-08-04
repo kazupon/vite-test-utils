@@ -46,6 +46,7 @@ async function resolveViteConfig(dir: string, config = 'vite.config.ts'): Promis
 async function resolveRootDirAndConfig() {
   const { options } = useTestContext()
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const dirs = [options.rootDir, resolve(options.testDir!, options.fixture!), process.cwd()]
   DEBUG('resolveRootDirAndConfig: dirs -> ', dirs)
 
@@ -76,6 +77,7 @@ export async function loadFixture() {
   const buildDir = resolve(ctx.options.rootDir, '.vite', randomId)
   DEBUG('loadFixture: buildDir -> ', buildDir)
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   Object.assign(ctx.options.viteConfig!, {
     root: rootDir,
     build: {
@@ -101,8 +103,10 @@ export async function loadFixture() {
 
   const loadedConfig = result ? result.config : {}
   DEBUG('loadFixture: loadedConfig -> ', loadedConfig)
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   ctx.vite = mergeConfig(loadedConfig, ctx.options.viteConfig!)
   DEBUG('loadFixture: final vite config -> ', ctx.vite)
 
-  await fs.mkdir(ctx.vite!.build!.outDir!, { recursive: true })
+  const ret = await fs.mkdir(buildDir, { recursive: true })
+  console.log('loadFixture: mkdir -> ', ret)
 }
