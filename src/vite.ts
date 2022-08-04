@@ -1,4 +1,4 @@
-import { promises as fs } from 'node:fs'
+// import { promises as fs } from 'node:fs'
 import { resolve } from 'node:path'
 import { useTestContext } from './context'
 import { mergeConfig } from 'vite'
@@ -107,5 +107,6 @@ export async function loadFixture() {
   ctx.vite = mergeConfig(loadedConfig, ctx.options.viteConfig!)
   DEBUG('loadFixture: final vite config -> ', ctx.vite)
 
-  await fs.mkdir(buildDir, { recursive: true })
+  // TODO:
+  // await fs.mkdir(buildDir, { recursive: true })
 }
