@@ -4,7 +4,7 @@ export default defineBuildConfig({
   declaration: true,
   entries: [
     {
-      input: 'src/index.ts',
+      input: 'src/index',
       outDir: './dist',
       declaration: true
     }
@@ -12,5 +12,5 @@ export default defineBuildConfig({
   rollup: {
     emitCJS: true
   },
-  externals: ['playwright', 'playwright-core']
+  externals: ['vitest', 'playwright', 'playwright-core']
 })
