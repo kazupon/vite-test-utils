@@ -26,7 +26,7 @@ export async function dynamicImport<T>(module: string): Promise<T> {
     /* istanbul ignore next */
     throw new Error(`
       The dependency '${module}' not found.
-      Please run 'yarn add --dev ${module}' or 'npm install --save-dev ${module}' or 'pnpm add --save-dev ${module}'
+      Please run 'npm install --save-dev ${module}' or 'yarn add --dev ${module}' or 'pnpm add --save-dev ${module}'
     `)
   }
 }
