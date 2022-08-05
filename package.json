@@ -83,8 +83,7 @@
   "pnpm": {
     "overrides": {
       "vite": "^3.0.4",
-      "vitest": "^0.20.3",
-      "vite-test-utils": "workspace:*"
+      "vitest": "^0.20.3"
     }
   },
   "gitHooks": {
