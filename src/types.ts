@@ -1,6 +1,6 @@
 import type { Browser, LaunchOptions } from 'playwright'
 import type { UserConfig } from 'vite'
-import type { ChildProcess } from 'node:child_process'
+import type { ExecaChildProcess } from 'execa'
 
 /**
  * The Test Context that is used in test utils
@@ -25,7 +25,7 @@ export interface TestContext {
   /**
    * The Vite server process
    */
-  server?: ChildProcess
+  server?: ExecaChildProcess
   /**
    * The port that is opened in server
    */
