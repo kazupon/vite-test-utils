@@ -72,7 +72,7 @@ importers:
       playwright: 1.24.2
       typescript: 4.7.4
       vite: 3.0.4
-      vite-test-utils: /vite-test-utils-edge/0.1.1-27663341.a0d08dc
+      vite-test-utils: /vite-test-utils-edge/0.1.1-27663450.a1dde9a
       vitest: 0.20.3
 
 packages:
@@ -3130,8 +3130,8 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vite-test-utils-edge/0.1.1-27663341.a0d08dc:
-    resolution: {integrity: sha512-gOhUm1ekSVQLI0YteASqbDr6i1t5lrusd9n9mkQHJp0QjRcoOkENNHL8M1ldXuuwec2CZrVMe/V4eE/OmNrb2A==}
+  /vite-test-utils-edge/0.1.1-27663450.a1dde9a:
+    resolution: {integrity: sha512-VlUiVRgFk5hpL0VxBjxP5+Kr8xodspLiV7yktMnT1HSw525naDVsUclqIcPkvMnYjbh8OmHMM7bGsJRMbydHDw==}
     engines: {node: '>= 14.18'}
     dependencies:
       debug: 4.3.4
