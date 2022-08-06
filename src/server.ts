@@ -8,10 +8,10 @@
  */
 
 import { fileURLToPath } from 'node:url'
+import { spawn } from 'node:child_process'
 import { fetch as _fetch, $fetch as _$fetch } from 'ohmyfetch'
 import { getRandomPort, waitForPort } from 'get-port-please'
 import { useTestContext } from './context'
-import { execa } from 'execa'
 import createDebug from 'debug'
 
 import type { FetchOptions } from 'ohmyfetch'
@@ -30,7 +30,7 @@ export async function startServer() {
   const devPath = fileURLToPath(new URL(`../lib/dev.ts`, import.meta.url))
   DEBUG('devPath: ', devPath)
 
-  ctx.server = execa('jiti', [devPath], {
+  ctx.server = await spawn('jiti', [devPath], {
     cwd: ctx.options.rootDir,
     stdio: 'inherit',
     env: {
