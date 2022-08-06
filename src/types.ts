@@ -1,6 +1,5 @@
 import type { Browser, LaunchOptions } from 'playwright'
-import type { UserConfig } from 'vite'
-import type { ChildProcess } from 'node:child_process'
+import type { UserConfig, ViteDevServer } from 'vite'
 
 /**
  * The Test Context that is used in test utils
@@ -15,17 +14,13 @@ export interface TestContext {
    */
   browser?: Browser
   /**
-   * The Vite config object that is resolved by this utils
+   * The Vite config that is resolved by this utils
    */
   vite?: UserConfig
   /**
-   * The Vite config file path that is resolved by this utils
+   * The Vite server instance
    */
-  viteConfig?: string
-  /**
-   * The Vite server process
-   */
-  server?: ChildProcess
+  server?: ViteDevServer
   /**
    * The port that is opened in server
    */

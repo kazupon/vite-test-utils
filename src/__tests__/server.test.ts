@@ -15,6 +15,7 @@ test('server', async () => {
   await startServer()
   await sleep(1000)
   assert(ctx.url?.startsWith(`http://localhost:${ctx.port}`))
+  assert(ctx.server != null)
 
   expect(url('/foo')).toBe(`http://localhost:${ctx.port}/foo`)
 
@@ -34,4 +35,6 @@ test('server', async () => {
     closed = true
   }
   expect(closed).toBe(true)
+  expect(ctx.server).toBeUndefined()
+  expect(ctx.port).toBeUndefined()
 })

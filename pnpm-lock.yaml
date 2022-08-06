@@ -8,7 +8,6 @@ importers:
 
   .:
     specifiers:
-      '@intlify/shared': ^9.2.2
       '@nexhome/yorkie': ^2.0.8
       '@types/debug': ^4.1.7
       '@types/express': ^4.17.13
@@ -24,7 +23,6 @@ importers:
       eslint-plugin-prettier: ^4.2.1
       get-port-please: ^2.5.0
       jiti: ^1.14.0
-      knitwork: ^0.1.2
       lint-staged: ^13.0.3
       npm-run-all: ^4.1.5
       ohmyfetch: ^0.4.18
@@ -40,13 +38,10 @@ importers:
       defu: 6.0.0
       esbuild: 0.14.53
       get-port-please: 2.5.0
-      jiti: 1.14.0
-      knitwork: 0.1.2
       ohmyfetch: 0.4.18
       picocolors: 1.0.0
       vite: 3.0.4
     devDependencies:
-      '@intlify/shared': 9.2.2
       '@nexhome/yorkie': 2.0.8
       '@types/debug': 4.1.7
       '@types/express': 4.17.13
@@ -57,6 +52,7 @@ importers:
       eslint: 8.21.0
       eslint-config-prettier: 8.5.0_eslint@8.21.0
       eslint-plugin-prettier: 4.2.1_h62lvancfh4b7r6zn2dgodrh5e
+      jiti: 1.14.0
       lint-staged: 13.0.3
       npm-run-all: 4.1.5
       playwright: 1.24.2
@@ -333,11 +329,6 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
-    dev: true
-
-  /@intlify/shared/9.2.2:
-    resolution: {integrity: sha512-wRwTpsslgZS5HNyM7uDQYZtxnbI12aGiBZURX3BTR9RFIKKRWpllTsgzHWvj3HKm3Y2Sh5LPC1r0PDCKEhVn9Q==}
-    engines: {node: '>= 14'}
     dev: true
 
   /@istanbuljs/schema/0.1.3:
@@ -2024,6 +2015,7 @@ packages:
   /jiti/1.14.0:
     resolution: {integrity: sha512-4IwstlaKQc9vCTC+qUXLM1hajy2ImiL9KnLvVYiaHOtS/v3wRjhLlGl121AmgDgx/O43uKmxownJghS5XMya2A==}
     hasBin: true
+    dev: true
 
   /joycon/3.1.1:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
@@ -2076,10 +2068,6 @@ packages:
     optionalDependencies:
       graceful-fs: 4.2.10
     dev: true
-
-  /knitwork/0.1.2:
-    resolution: {integrity: sha512-2ekmY2S/VB3YGVhrIFadyJQpkjMFSf48tsXCnA+kjs4FEQIT+5FLyOF0No/X58z/2E/VaMyeJfukRoVT4gMsfQ==}
-    dev: false
 
   /levn/0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}

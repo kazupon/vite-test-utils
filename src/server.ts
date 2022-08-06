@@ -7,14 +7,14 @@
  * - license: MIT
  */
 
-import { fileURLToPath } from 'node:url'
-import { spawn } from 'node:child_process'
 import { fetch as _fetch, $fetch as _$fetch } from 'ohmyfetch'
 import { getRandomPort, waitForPort } from 'get-port-please'
 import { useTestContext } from './context'
+import { createServer } from 'vite'
 import createDebug from 'debug'
 
 import type { FetchOptions } from 'ohmyfetch'
+import type { InlineConfig } from 'vite'
 
 const DEBUG = createDebug('vite-test-utils:server')
 
@@ -27,19 +27,33 @@ export async function startServer() {
   ctx.url = `http://localhost:${port}`
   DEBUG(`ctx.url: ${ctx.url}`)
 
-  const devPath = fileURLToPath(new URL(`../lib/dev.ts`, import.meta.url))
-  DEBUG('devPath: ', devPath)
+  const inlineConfig = Object.assign(
+    {
+      configFile: false,
+      logLevel: 'info',
+      server: {
+        hmr: false
+      },
+      plugins: [
+        {
+          name: 'vite-test-utils:server',
+          configureServer(server) {
+            return () => {
+              server.middlewares.use((req, res, next) => {
+                DEBUG('req.originalUrl', req.originalUrl)
+                next()
+              })
+            }
+          }
+        }
+      ]
+    } as InlineConfig,
+    ctx.vite
+  )
+  DEBUG('inline config:', inlineConfig)
 
-  ctx.server = await spawn('jiti', [devPath], {
-    cwd: ctx.options.rootDir,
-    stdio: 'inherit',
-    env: {
-      ...process.env,
-      VITE_TEST_UTILS_PORT: String(port),
-      VITE_TEST_UTILS_CONFIG: ctx.viteConfig,
-      NODE_ENV: 'development'
-    }
-  })
+  const vite = (ctx.server = await createServer(inlineConfig))
+  await vite.listen(port)
 
   await waitForPort(port, { retries: 32 })
   for (let i = 0; i < 50; i++) {
@@ -59,7 +73,7 @@ export async function startServer() {
 export async function stopServer() {
   const ctx = useTestContext()
   if (ctx.server) {
-    await ctx.server.kill()
+    await ctx.server.close()
     ctx.server = undefined
     ctx.port = undefined
   }
