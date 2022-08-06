@@ -14,10 +14,9 @@ test('server', async () => {
 
   await startServer()
   await sleep(1000)
-  assert(ctx.url?.startsWith('http://127.0.0.1'))
-  assert(ctx.server != null)
+  assert(ctx.url?.startsWith(`http://localhost:${ctx.port}`))
 
-  expect(url('/foo')).toBe(`http://127.0.0.1:${ctx.port}/foo`)
+  expect(url('/foo')).toBe(`http://localhost:${ctx.port}/foo`)
 
   const rawRes = await fetch('/')
   expect(rawRes.status).toBe(200)
@@ -28,10 +27,11 @@ test('server', async () => {
   await stopServer()
   await sleep(1000)
 
-  // TODO: check!
-  // rawRes = await fetch('/')
-  // res = await $fetch('/')
-  // console.log(res)
-  expect(ctx.server).toBeUndefined()
-  expect(ctx.port).toBeUndefined()
+  let closed = false
+  try {
+    await fetch('/')
+  } catch {
+    closed = true
+  }
+  expect(closed).toBe(true)
 })

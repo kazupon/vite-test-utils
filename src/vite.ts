@@ -1,10 +1,12 @@
-// import { promises as fs } from 'node:fs'
+import { promises as fs } from 'node:fs'
 import { resolve } from 'node:path'
-import { useTestContext } from './context'
 import { mergeConfig } from 'vite'
-import { isExists, loadConfig } from './utils'
+// import { genObjectFromRaw } from 'knitwork'
 import pc from 'picocolors'
 import createDebug from 'debug'
+
+import { useTestContext } from './context'
+import { isExists, loadConfig, mkTmpDir, toCode } from './utils'
 
 const DEBUG = createDebug('vite-test-utils:vite')
 
@@ -134,6 +136,10 @@ export async function loadFixture() {
     DEBUG('loadFixture: final vite config -> ', ctx.vite)
   }
 
-  // TODO:
-  // await fs.mkdir(buildDir, { recursive: true })
+  const tmpDir = await mkTmpDir()
+  const viteDevConfig = `export default ${toCode(ctx.vite)}`
+
+  const viteDevConfigPath = (ctx.viteConfig = resolve(tmpDir, 'vite.config.mjs'))
+  DEBUG('viteDevConfigPath -> ', viteDevConfigPath)
+  await fs.writeFile(viteDevConfigPath, viteDevConfig)
 }
