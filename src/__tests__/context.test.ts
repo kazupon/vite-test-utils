@@ -22,6 +22,7 @@ test('basic', () => {
         outDir: './output'
       }
     },
+    mode: 'preview',
     browserOptions: {
       type: 'firefox',
       launch: { headless: true }
@@ -32,6 +33,7 @@ test('basic', () => {
   expect(ctx.options.testDir).toBe('.')
   expect(ctx.options.configFile).toBe('myVite.config')
   expect(ctx.options.viteConfig).toEqual({ build: { outDir: './output' } })
+  expect(ctx.options.mode).toBe('preview')
   expect(ctx.options.browserOptions).toEqual({ type: 'firefox', launch: { headless: true } })
 
   // call useTestContext()
@@ -41,6 +43,7 @@ test('basic', () => {
   expect(ctx2.options.testDir).toBe('.')
   expect(ctx2.options.configFile).toBe('myVite.config')
   expect(ctx2.options.viteConfig).toEqual({ build: { outDir: './output' } })
+  expect(ctx2.options.mode).toBe('preview')
   expect(ctx2.options.browserOptions).toEqual({ type: 'firefox', launch: { headless: true } })
   expect(ctx).toEqual(ctx2)
 
@@ -56,6 +59,7 @@ test('default options', () => {
   expect(ctx.options.testDir).toBe('/path/to/test')
   expect(ctx.options.configFile).toBe('vite.config')
   expect(ctx.options.viteConfig).toEqual({})
+  expect(ctx.options.mode).toBe('dev')
   expect(ctx.options.browserOptions).toEqual({ type: 'chromium' })
 
   const ctx2 = useTestContext()
@@ -64,5 +68,6 @@ test('default options', () => {
   expect(ctx2.options.testDir).toBe('/path/to/test')
   expect(ctx2.options.configFile).toBe('vite.config')
   expect(ctx2.options.viteConfig).toEqual({})
+  expect(ctx2.options.mode).toBe('dev')
   expect(ctx2.options.browserOptions).toEqual({ type: 'chromium' })
 })

@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url'
 import { createTestContext } from '../context'
-import { loadFixture } from '../vite'
+import { loadFixture, buildFixture } from '../vite'
 
 const CHECK_CONFIG = {
   define: {
@@ -76,4 +76,19 @@ test('override with "options.viteConfig"', async () => {
       __VERSION__: '"1.0.0"'
     }
   })
+})
+
+test('build', async () => {
+  const ctx = createTestContext({
+    rootDir: fileURLToPath(new URL(`./fixtures/server`, import.meta.url)),
+    mode: 'preview',
+    viteConfig: {
+      define: {
+        __VERSION__: '"1.0.0"'
+      }
+    }
+  })
+  await loadFixture()
+  await buildFixture()
+  expect(ctx.buildDir).toContain('vite-test-utils-')
 })

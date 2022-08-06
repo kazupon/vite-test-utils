@@ -9,7 +9,7 @@
 
 import { createTestContext, setTestContext } from './context'
 import { startServer, stopServer } from './server'
-import { loadFixture } from './vite'
+import { loadFixture, buildFixture } from './vite'
 import { createBrowser } from './browser'
 import { dynamicImport } from './utils'
 
@@ -20,9 +20,15 @@ function createTest(options: TestOptions = {}) {
 
   const beforeEach = async () => {
     setTestContext(ctx)
+    if (ctx.options.mode === 'preview') {
+      await startServer()
+    }
   }
 
   const afterEach = async () => {
+    if (ctx.options.mode === 'preview') {
+      await stopServer()
+    }
     setTestContext(undefined)
   }
 
@@ -40,8 +46,16 @@ function createTest(options: TestOptions = {}) {
 
   const setup = async () => {
     await loadFixture()
+
+    if (ctx.options.mode === 'preview') {
+      await buildFixture()
+    }
+
     await createBrowser()
-    await startServer()
+
+    if (ctx.options.mode === 'dev') {
+      await startServer()
+    }
   }
 
   return {

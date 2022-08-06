@@ -10,7 +10,7 @@
 import { fetch as _fetch, $fetch as _$fetch } from 'ohmyfetch'
 import { getRandomPort, waitForPort } from 'get-port-please'
 import { useTestContext } from './context'
-import { createServer } from 'vite'
+import { createServer, preview, ViteDevServer } from 'vite'
 import createDebug from 'debug'
 
 import type { FetchOptions } from 'ohmyfetch'
@@ -27,13 +27,15 @@ export async function startServer() {
   ctx.url = `http://localhost:${port}`
   DEBUG(`ctx.url: ${ctx.url}`)
 
+  // prettier-ignore
+  const modeConfig: InlineConfig = ctx.options.mode === 'dev'
+    ? { server: { hmr: false } }
+    : { preview: { port } }
   const inlineConfig = Object.assign(
     {
       configFile: false,
+      ...modeConfig,
       logLevel: 'info',
-      server: {
-        hmr: false
-      },
       plugins: [
         {
           name: 'vite-test-utils:server',
@@ -52,8 +54,12 @@ export async function startServer() {
   )
   DEBUG('inline config:', inlineConfig)
 
-  const vite = (ctx.server = await createServer(inlineConfig))
-  await vite.listen(port)
+  if (ctx.options.mode === 'dev') {
+    const vite = (ctx.server = await createServer(inlineConfig))
+    await vite.listen(port)
+  } else {
+    ctx.server = await preview(inlineConfig)
+  }
 
   await waitForPort(port, { retries: 32 })
   for (let i = 0; i < 50; i++) {
@@ -70,10 +76,20 @@ export async function startServer() {
   throw new Error('Timeout waiting for dev server!')
 }
 
+function isDevServer(server: unknown, mode: 'dev' | 'preview'): server is ViteDevServer {
+  return mode === 'dev'
+}
+
 export async function stopServer() {
   const ctx = useTestContext()
   if (ctx.server) {
-    await ctx.server.close()
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    if (isDevServer(ctx.server, ctx.options.mode!)) {
+      await ctx.server.close()
+    } else {
+      // NOTE: When we stop preview server, connection could not disconnect soon...
+      await ctx.server.httpServer.close()
+    }
     ctx.server = undefined
     ctx.port = undefined
   }
