@@ -7,69 +7,38 @@
  * - license: MIT
  */
 
-import { resolve } from 'node:path'
-import { promises as fs } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import { fetch as _fetch, $fetch as _$fetch } from 'ohmyfetch'
 import { getRandomPort, waitForPort } from 'get-port-please'
 import { useTestContext } from './context'
-import express from 'express'
-import { createServer } from 'vite'
+import { execa } from 'execa'
 import createDebug from 'debug'
 
 import type { FetchOptions } from 'ohmyfetch'
-import type { InlineConfig } from 'vite'
 
 const DEBUG = createDebug('vite-test-utils:server')
 
 export async function startServer() {
   const ctx = useTestContext()
 
-  DEBUG('sdfsdfs')
   await stopServer()
 
   const port = (ctx.port = await getRandomPort())
-  ctx.url = `http://127.0.0.1:${port}`
+  ctx.url = `http://localhost:${port}`
   DEBUG(`ctx.url: ${ctx.url}`)
 
-  const inlineConfig = Object.assign(
-    {
-      configFile: false,
-      logLevel: 'info',
-      server: {
-        hmr: false,
-        middlewareMode: true
-      }
-    } as InlineConfig,
-    ctx.vite
-  )
-  DEBUG('inline config:', inlineConfig)
+  const devPath = fileURLToPath(new URL(`../lib/dev.ts`, import.meta.url))
+  DEBUG('devPath: ', devPath)
 
-  const vite = (ctx.server = await createServer(inlineConfig))
-
-  const app = express()
-  app.use(vite.middlewares)
-  app.use('*', async (req, res) => {
-    try {
-      const url = req.originalUrl
-      DEBUG('request url: ', url)
-      if (url === '/') {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const template = await fs.readFile(resolve(ctx.options.rootDir!, 'index.html'), 'utf-8')
-        // DEBUG("tempalte ->\n", template);
-        const transformedHTML = await vite.transformIndexHtml(url, template)
-        // DEBUG("transformedHTML ->\n", transformedHTML);
-        res.status(200).set({ 'Content-Type': 'text/html' }).end(transformedHTML)
-      }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (e: any) {
-      vite && vite.ssrFixStacktrace(e)
-      console.error(e.stack)
-      res.status(500).end(e.stack)
+  ctx.server = execa('jiti', [devPath], {
+    cwd: ctx.options.rootDir,
+    stdio: 'inherit',
+    env: {
+      ...process.env,
+      VITE_TEST_UTILS_PORT: String(port),
+      VITE_TEST_UTILS_CONFIG: ctx.viteConfig,
+      NODE_ENV: 'development'
     }
-  })
-
-  app.listen(port, () => {
-    // vite.printUrls();
   })
 
   await waitForPort(port, { retries: 32 })
@@ -90,7 +59,7 @@ export async function startServer() {
 export async function stopServer() {
   const ctx = useTestContext()
   if (ctx.server) {
-    await ctx.server.close()
+    await ctx.server.kill()
     ctx.server = undefined
     ctx.port = undefined
   }
