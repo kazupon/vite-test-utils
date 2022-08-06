@@ -22,6 +22,7 @@ export function createTestContext(options: TestOptions = {}): TestContext {
     testDir: resolve(cwd, 'test'),
     configFile: 'vite.config',
     viteConfig: {},
+    mode: 'dev',
     browserOptions: {
       type: 'chromium'
     }

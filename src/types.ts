@@ -1,5 +1,5 @@
 import type { Browser, LaunchOptions } from 'playwright'
-import type { UserConfig, ViteDevServer } from 'vite'
+import type { UserConfig, ViteDevServer, PreviewServer } from 'vite'
 
 /**
  * The Test Context that is used in test utils
@@ -20,7 +20,11 @@ export interface TestContext {
   /**
    * The Vite server instance
    */
-  server?: ViteDevServer
+  server?: ViteDevServer | PreviewServer
+  /**
+   * The output directory
+   */
+  buildDir?: string
   /**
    * The port that is opened in server
    */
@@ -65,6 +69,15 @@ export interface TestOptions {
    * @default {}
    */
   viteConfig?: UserConfig
+  /**
+   * The vite server working mode
+   *
+   * @remarks
+   * If you use `'dev'`, vite-test-utils will start dev server, else you use `'preview'` vite-test-utils will build fixture and start preview server.
+   *
+   * @default 'dev'
+   */
+  mode?: 'dev' | 'preview'
   /**
    * The playwright browser options.
    */

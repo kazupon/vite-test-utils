@@ -1,10 +1,12 @@
 // import { promises as fs } from 'node:fs'
 import { resolve } from 'node:path'
-import { useTestContext } from './context'
-import { mergeConfig } from 'vite'
-import { isExists, loadConfig } from './utils'
+import { mergeConfig, build } from 'vite'
 import pc from 'picocolors'
 import createDebug from 'debug'
+import { useTestContext } from './context'
+import { isExists, loadConfig, mkTmpDir } from './utils'
+
+import type { InlineConfig, UserConfig } from 'vitest'
 
 const DEBUG = createDebug('vite-test-utils:vite')
 
@@ -76,29 +78,20 @@ async function resolveRootDirAndConfig(): Promise<[string, string] | null> {
 export async function loadFixture() {
   const ctx = useTestContext()
 
+  let rootDir = ''
+  let configFile = ''
+  let mergeTargetConfig: UserConfig | undefined
+
   const resolveResult = await resolveRootDirAndConfig()
   if (Array.isArray(resolveResult)) {
-    const [rootDir, configFile] = resolveResult
+    ;[rootDir, configFile] = resolveResult
     DEBUG('loadFixture: rootDir -> ', rootDir)
     DEBUG('loadFixture: configFile -> ', configFile)
 
-    const randomId = Math.random().toString(36).slice(2, 8)
-    const buildDir = resolve(rootDir, '.vite', randomId)
-    DEBUG('loadFixture: buildDir -> ', buildDir)
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    Object.assign(ctx.options.viteConfig!, {
-      root: rootDir,
-      build: {
-        outDir: buildDir
-      }
-    })
-    DEBUG('loadFixture: viteConfig -> ', ctx.options.viteConfig)
-
     const loadResult = await loadConfig(
       {
-        mode: 'development', // TODO:
-        command: 'build' // TODO:
+        mode: ctx.options.mode === 'dev' ? 'development' : 'production',
+        command: ctx.options.mode === 'dev' ? 'serve' : 'build'
       },
       {
         configFile,
@@ -112,28 +105,37 @@ export async function loadFixture() {
 
     const loadedConfig = loadResult ? loadResult.config : {}
     DEBUG('loadFixture: loadedConfig -> ', loadedConfig)
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    ctx.vite = mergeConfig(loadedConfig, ctx.options.viteConfig!)
-    DEBUG('loadFixture: final vite config -> ', ctx.vite)
+    mergeTargetConfig = loadedConfig as UserConfig
   } else {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const rootDir = ctx.options.rootDir!
+    rootDir = ctx.options.rootDir!
     DEBUG('loadFixture: rootDir -> ', rootDir)
-
-    const randomId = Math.random().toString(36).slice(2, 8)
-    const buildDir = resolve(rootDir, '.vite', randomId)
-    DEBUG('loadFixture: buildDir -> ', buildDir)
-
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    ctx.vite = mergeConfig(ctx.options.viteConfig!, {
+    mergeTargetConfig = ctx.options.viteConfig! as UserConfig
+  }
+
+  let buildDir: string | undefined
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  if (ctx.options.mode! === 'preview') {
+    ctx.buildDir = buildDir = await mkTmpDir(Math.random().toString(36).slice(2, 8))
+  }
+  DEBUG('loadFixture: buildDir -> ', buildDir)
+
+  ctx.vite = mergeConfig(
+    mergeTargetConfig,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    mergeConfig(ctx.options.viteConfig!, {
+      logLevel: ctx.options.mode === 'preview' ? 'silent' : 'info',
       root: rootDir,
       build: {
         outDir: buildDir
       }
-    })
-    DEBUG('loadFixture: final vite config -> ', ctx.vite)
-  }
+    } as InlineConfig)
+  )
+  DEBUG('loadFixture: final vite config -> ', ctx.vite)
+}
 
-  // TODO:
-  // await fs.mkdir(buildDir, { recursive: true })
+export async function buildFixture() {
+  const ctx = useTestContext()
+  await build(ctx.vite)
 }

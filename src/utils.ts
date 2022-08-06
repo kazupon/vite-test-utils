@@ -2,6 +2,7 @@ import { isAbsolute, dirname, resolve, relative, join, extname } from 'node:path
 import { pathToFileURL } from 'node:url'
 import { promises as fs, constants as FS_CONSTANTS } from 'node:fs'
 import { createRequire } from 'node:module'
+import { tmpdir } from 'node:os'
 import { build } from 'esbuild'
 import { normalizePath } from 'vite'
 import createDebug from 'debug'
@@ -17,6 +18,13 @@ export async function isExists(path: string) {
   } catch {
     return false
   }
+}
+
+export async function mkTmpDir(prefix?: string) {
+  const p = join(tmpdir(), prefix ? `vite-test-utils-${prefix}-` : 'vite-test-utils-')
+  const dir = await fs.mkdtemp(p)
+  DEBUG('mkTmpDir', dir)
+  return dir
 }
 
 export async function dynamicImport<T>(module: string): Promise<T> {
