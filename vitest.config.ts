@@ -1,9 +1,9 @@
-import { defineConfig } from 'vitest/config'
+import { defineConfig, configDefaults } from 'vitest/config'
 
 export default defineConfig({
   test: {
     globals: true,
     clearMocks: true,
-    exclude: ['playground']
+    exclude: [...configDefaults.exclude, 'playground']
   }
 })
