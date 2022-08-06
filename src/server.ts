@@ -7,12 +7,9 @@
  * - license: MIT
  */
 
-import { resolve } from 'node:path'
-import { promises as fs } from 'node:fs'
 import { fetch as _fetch, $fetch as _$fetch } from 'ohmyfetch'
 import { getRandomPort, waitForPort } from 'get-port-please'
 import { useTestContext } from './context'
-import express from 'express'
 import { createServer } from 'vite'
 import createDebug from 'debug'
 
@@ -24,11 +21,10 @@ const DEBUG = createDebug('vite-test-utils:server')
 export async function startServer() {
   const ctx = useTestContext()
 
-  DEBUG('sdfsdfs')
   await stopServer()
 
   const port = (ctx.port = await getRandomPort())
-  ctx.url = `http://127.0.0.1:${port}`
+  ctx.url = `http://localhost:${port}`
   DEBUG(`ctx.url: ${ctx.url}`)
 
   const inlineConfig = Object.assign(
@@ -36,41 +32,28 @@ export async function startServer() {
       configFile: false,
       logLevel: 'info',
       server: {
-        hmr: false,
-        middlewareMode: true
-      }
+        hmr: false
+      },
+      plugins: [
+        {
+          name: 'vite-test-utils:server',
+          configureServer(server) {
+            return () => {
+              server.middlewares.use((req, res, next) => {
+                DEBUG('req.originalUrl', req.originalUrl)
+                next()
+              })
+            }
+          }
+        }
+      ]
     } as InlineConfig,
     ctx.vite
   )
   DEBUG('inline config:', inlineConfig)
 
   const vite = (ctx.server = await createServer(inlineConfig))
-
-  const app = express()
-  app.use(vite.middlewares)
-  app.use('*', async (req, res) => {
-    try {
-      const url = req.originalUrl
-      DEBUG('request url: ', url)
-      if (url === '/') {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const template = await fs.readFile(resolve(ctx.options.rootDir!, 'index.html'), 'utf-8')
-        // DEBUG("tempalte ->\n", template);
-        const transformedHTML = await vite.transformIndexHtml(url, template)
-        // DEBUG("transformedHTML ->\n", transformedHTML);
-        res.status(200).set({ 'Content-Type': 'text/html' }).end(transformedHTML)
-      }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (e: any) {
-      vite && vite.ssrFixStacktrace(e)
-      console.error(e.stack)
-      res.status(500).end(e.stack)
-    }
-  })
-
-  app.listen(port, () => {
-    // vite.printUrls();
-  })
+  await vite.listen(port)
 
   await waitForPort(port, { retries: 32 })
   for (let i = 0; i < 50; i++) {
