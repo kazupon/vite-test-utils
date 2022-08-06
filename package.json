@@ -54,7 +54,6 @@
     "debug": "^4.3.4",
     "defu": "^6.0.0",
     "esbuild": "^0.14.53",
-    "express": "^4.18.1",
     "get-port-please": "^2.5.0",
     "ohmyfetch": "^0.4.18",
     "picocolors": "^1.0.0",
