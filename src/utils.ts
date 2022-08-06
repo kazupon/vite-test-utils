@@ -4,8 +4,6 @@ import { promises as fs, constants as FS_CONSTANTS } from 'node:fs'
 import { createRequire } from 'node:module'
 import { build } from 'esbuild'
 import { normalizePath } from 'vite'
-import { tmpdir } from 'node:os'
-import { isObject, isString, isArray, isRegExp, isFunction } from '@intlify/shared'
 import createDebug from 'debug'
 
 import type { UserConfigExport, ConfigEnv, UserConfig } from 'vite'
@@ -21,13 +19,6 @@ export async function isExists(path: string) {
   }
 }
 
-export async function mkTmpDir() {
-  const prefix = join(tmpdir(), 'vite-test-utils-')
-  const dir = await fs.mkdtemp(prefix)
-  DEBUG('mkTmpDir', dir)
-  return dir
-}
-
 export async function dynamicImport<T>(module: string): Promise<T> {
   try {
     return import(String(module))
@@ -38,6 +29,11 @@ export async function dynamicImport<T>(module: string): Promise<T> {
       Please run 'npm install --save-dev ${module}' or 'yarn add --dev ${module}' or 'pnpm add --save-dev ${module}'
     `)
   }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isObject(value: unknown): value is Record<string, any> {
+  return Object.prototype.toString.call(value) === '[object Object]'
 }
 
 const _require = createRequire(import.meta.url)
@@ -71,7 +67,7 @@ export async function loadConfig(
     try {
       const pkg = await lookupFile(configRoot, ['package.json'])
       isESM = !!pkg && JSON.parse(pkg).type === 'module'
-    } catch {} // eslint-disable-line no-empty
+    } catch (e) {} // eslint-disable-line no-empty
   }
 
   try {
@@ -272,44 +268,4 @@ async function loadConfigFromBundledFile(
     _require.extensions[loaderExt] = defaultLoader
     return raw.__esModule ? raw.default : raw
   }
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function stringifyObj(obj: Record<string, any>): string {
-  return `Object({${Object.entries(obj)
-    .map(([key, value]) => `${JSON.stringify(key)}:${toCode(value)}`)
-    .join(`,`)}})`
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function toCode(code: any): string {
-  if (code === null) {
-    return `null`
-  }
-
-  if (code === undefined) {
-    return `undefined`
-  }
-
-  if (isString(code)) {
-    return JSON.stringify(code)
-  }
-
-  if (isRegExp(code) && code.toString) {
-    return code.toString()
-  }
-
-  if (isFunction(code) && code.toString) {
-    return `(${code.toString()})`
-  }
-
-  if (isArray(code)) {
-    return `[${code.map(c => toCode(c)).join(`,`)}]`
-  }
-
-  if (isObject(code)) {
-    return stringifyObj(code)
-  }
-
-  return code + ``
 }

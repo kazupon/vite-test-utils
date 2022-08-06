@@ -4,6 +4,6 @@ export default defineConfig({
   test: {
     globals: true,
     clearMocks: true,
-    exclude: ['playground', './node_modules/**']
+    exclude: ['playground']
   }
 })
