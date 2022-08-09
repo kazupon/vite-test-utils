@@ -14,7 +14,6 @@ async function start(ctx: FixtureContext) {
     })
     DEBUG('resolvedConfig', vite.config)
     await vite.listen(ctx.port)
-    vite.printUrls()
     return vite
   } else {
     const vite = await preview({
