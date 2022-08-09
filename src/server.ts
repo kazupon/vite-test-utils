@@ -10,13 +10,18 @@
 import { fetch as _fetch, $fetch as _$fetch } from 'ohmyfetch'
 import { getRandomPort, waitForPort } from 'get-port-please'
 import { useTestContext } from './context'
-import { createServer, preview, ViteDevServer } from 'vite'
+import { fileURLToPath } from 'node:url'
+import { spawn } from 'node:child_process'
 import createDebug from 'debug'
 
 import type { FetchOptions } from 'ohmyfetch'
-import type { InlineConfig } from 'vite'
 
 const DEBUG = createDebug('vite-test-utils:server')
+
+function getServerEntryPoint() {
+  const devPath = fileURLToPath(new URL(`./process.${!__BUILD__ ? 'ts' : 'mjs'}`, import.meta.url))
+  return devPath
+}
 
 export async function startServer() {
   const ctx = useTestContext()
@@ -27,39 +32,24 @@ export async function startServer() {
   ctx.url = `http://localhost:${port}`
   DEBUG(`ctx.url: ${ctx.url}`)
 
-  // prettier-ignore
-  const modeConfig: InlineConfig = ctx.options.mode === 'dev'
-    ? { server: { hmr: false } }
-    : { preview: { port } }
-  const inlineConfig = Object.assign(
-    {
-      configFile: false,
-      ...modeConfig,
-      logLevel: 'info',
-      plugins: [
-        {
-          name: 'vite-test-utils:server',
-          configureServer(server) {
-            return () => {
-              server.middlewares.use((req, res, next) => {
-                DEBUG('req.originalUrl', req.originalUrl)
-                next()
-              })
-            }
-          }
-        }
-      ]
-    } as InlineConfig,
-    ctx.vite
-  )
-  DEBUG('inline config:', inlineConfig)
+  const devPath = getServerEntryPoint()
+  DEBUG('devPath: ', devPath)
 
-  if (ctx.options.mode === 'dev') {
-    const vite = (ctx.server = await createServer(inlineConfig))
-    await vite.listen(port)
-  } else {
-    ctx.server = await preview(inlineConfig)
-  }
+  ctx.server = await spawn('jiti', [devPath], {
+    cwd: ctx.options.fixtureDir,
+    stdio: 'inherit',
+    env: {
+      ...process.env,
+      __VTU_PORT: String(port),
+      __VTU_MODE: ctx.options.mode,
+      __VTU_FIXTURE_BUILD_DIR: ctx.buildDir,
+      __VTU_FIXTURE_ROOT: ctx.options.fixtureDir,
+      __VTU_FIXTURE_CONFIG_FILE: ctx.options.configFile,
+      __VTU_FIXTURE_VITE_CONFIG: ctx.viteConfigInline,
+      __VTU_FIXTURE_VITE_CONFIG_FILE: ctx.options.viteConfigFile,
+      NODE_ENV: ctx.options.mode === 'dev' ? 'development' : 'production'
+    } as NodeJS.ProcessEnv
+  })
 
   await waitForPort(port, { retries: 32 })
   for (let i = 0; i < 50; i++) {
@@ -76,20 +66,10 @@ export async function startServer() {
   throw new Error('Timeout waiting for dev server!')
 }
 
-function isDevServer(server: unknown, mode: 'dev' | 'preview'): server is ViteDevServer {
-  return mode === 'dev'
-}
-
 export async function stopServer() {
   const ctx = useTestContext()
   if (ctx.server) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    if (isDevServer(ctx.server, ctx.options.mode!)) {
-      await ctx.server.close()
-    } else {
-      // NOTE: When we stop preview server, connection could not disconnect soon...
-      await ctx.server.httpServer.close()
-    }
+    await ctx.server.kill()
     ctx.server = undefined
     ctx.port = undefined
   }

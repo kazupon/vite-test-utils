@@ -1,141 +1,199 @@
-// import { promises as fs } from 'node:fs'
+import { promises as fs } from 'node:fs'
 import { resolve } from 'node:path'
-import { mergeConfig, build } from 'vite'
+import { mergeConfig, build, ConfigEnv } from 'vite'
 import pc from 'picocolors'
 import createDebug from 'debug'
 import { useTestContext } from './context'
-import { isExists, loadConfig, mkTmpDir } from './utils'
+import { isExists, loadConfig, mkTmpDir, toCode } from './utils'
 
-import type { InlineConfig, UserConfig } from 'vitest'
+import type { UserConfig } from 'vite'
+import type { TestOptions } from './types'
+
+export type FixtureContext = {
+  port: number
+  mode: Required<TestOptions>['mode']
+  root: string
+  buildDir?: string
+  configFile?: string
+  viteConfig?: string
+  viteConfigFile?: string
+  vite?: UserConfig
+}
 
 const DEBUG = createDebug('vite-test-utils:vite')
+
+export function getFixtureContextFrom(env: NodeJS.ProcessEnv): FixtureContext {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const options: any = {}
+
+  // TODO: should type check !!
+  options.port = env.__VTU_PORT != null ? parseInt(env.__VTU_PORT) : 3000
+  // prettier-ignore
+  options.mode = env.__VTU_MODE != null && ['dev', 'preview'].includes(env.__VTU_MODE)
+    ? env.__VTU_MODE
+    : 'dev'
+  options.root = env.__VTU_FIXTURE_ROOT ?? process.cwd()
+  options.buildDir = env.__VTU_FIXTURE_BUILD_DIR
+  options.configFile = env.__VTU_FIXTURE_CONFIG_FILE
+  options.viteConfig = env.__VTU_FIXTURE_VITE_CONFIG
+  options.viteConfigFile = env.__VTU_FIXTURE_VITE_CONFIG_FILE
+
+  return options
+}
 
 /**
  * The below config file is supported by vite
  * https://github.com/vitejs/vite/blob/22084a64264e84bcbb97eb9ccaa2d7672f0bee71/packages/vite/src/node/constants.ts#L35-L42
  */
 const DEFAULT_CONFIG_FILES = [
-  'vite.config.js',
   'vite.config.mjs',
-  'vite.config.ts',
-  'vite.config.cjs',
   'vite.config.mts',
-  'vite.config.cts'
-]
+  'vite.config.cjs',
+  'vite.config.cts',
+  'vite.config.ts',
+  'vite.config.js'
+] as const
 
-async function resolveViteConfig(dir: string, config = 'vite.config.ts'): Promise<[boolean, string]> {
-  let hasDir = false
-  let _config = ''
+async function resolveViteConfig(
+  dir: string,
+  {
+    config = 'vite.config.ts',
+    viteDefaultConfigCheck = true
+  }: { config?: string; viteDefaultConfigCheck?: boolean } = {}
+): Promise<[boolean, string | null]> {
+  DEBUG('resolveViteConfig: ', dir, config, viteDefaultConfigCheck)
 
   if (!(await isExists(dir))) {
-    return [hasDir, _config]
+    DEBUG('resolveViteConfig: dir not exists', dir)
+    return [false, null]
   }
-  hasDir = true
 
-  const configFiles = [...DEFAULT_CONFIG_FILES, config]
+  const configFiles = viteDefaultConfigCheck ? DEFAULT_CONFIG_FILES : [config]
   DEBUG('resolveViteConfig: configFiles -> ', configFiles)
 
+  let found = false
+  let resolveViteConfig: string | null = null
   for (const config of configFiles) {
-    if (await isExists(resolve(dir, config))) {
-      _config = config
+    const target = resolve(dir, config)
+    DEBUG('resolveViteConfig: target -> ', target)
+    if (await isExists(target)) {
+      found = true
+      resolveViteConfig = target
       break
     }
   }
 
-  DEBUG('resolveViteConfig: ', dir, hasDir, _config)
-  return [hasDir, _config]
+  DEBUG('resolveViteConfig: final -> ', found, resolveViteConfig)
+  return [found, resolveViteConfig]
 }
 
-async function resolveRootDirAndConfig(): Promise<[string, string] | null> {
-  const { options } = useTestContext()
+async function resolveFixture(fixtureDir: string, config?: string): Promise<boolean> {
+  if (config) {
+    const [found] = await resolveViteConfig(fixtureDir, { config, viteDefaultConfigCheck: false })
+    if (found) {
+      return true
+    }
+  }
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const dirs = [options.rootDir, resolve(options.testDir!, options.fixture!), process.cwd()]
-  DEBUG('resolveRootDirAndConfig: dirs -> ', dirs)
-
+  let found = false
+  const dirs = [fixtureDir, process.cwd()]
   for (const dir of dirs) {
-    if (dir) {
-      const [hasDir, config] = await resolveViteConfig(dir, options.configFile)
-      DEBUG('resolveRootDirAndConfig: ', dir, hasDir, config)
-      if (hasDir && config) {
-        return [dir, config]
-      }
+    const [_found, resolvedViteConfig] = await resolveViteConfig(dir)
+    DEBUG('resolveFixture:', dir, found, resolvedViteConfig)
+    if (_found) {
+      found = true
+      break
     }
   }
 
-  console.warn(
-    pc.yellow(
-      pc.bold(
-        'cannot not resolve project dir and config. (Please make sure `options.rootDir`, `options.config`, `options.testDir`, `options.fixture` configration)'
-      )
-    )
-  )
-  console.warn(pc.yellow(pc.bold('Use `options.viteConfig` as configuration.')))
-
-  return null
+  DEBUG('resolvedViteConfig: final', found)
+  return found
 }
 
-export async function loadFixture() {
-  const ctx = useTestContext()
+function getViteCommand(mode: FixtureContext['mode']): ConfigEnv['command'] {
+  return mode === 'dev' ? 'serve' : 'build'
+}
 
-  let rootDir = ''
-  let configFile = ''
-  let mergeTargetConfig: UserConfig | undefined
+function getViteMode(mode: FixtureContext['mode']): NodeJS.ProcessEnv['NODE_ENV'] {
+  return mode === 'dev' ? 'development' : 'production'
+}
 
-  const resolveResult = await resolveRootDirAndConfig()
-  if (Array.isArray(resolveResult)) {
-    ;[rootDir, configFile] = resolveResult
-    DEBUG('loadFixture: rootDir -> ', rootDir)
-    DEBUG('loadFixture: configFile -> ', configFile)
-
-    const loadResult = await loadConfig(
-      {
-        mode: ctx.options.mode === 'dev' ? 'development' : 'production',
-        command: ctx.options.mode === 'dev' ? 'serve' : 'build'
-      },
-      {
-        configFile,
-        configRoot: rootDir
-      }
-    )
-    if (!loadResult) {
-      throw new Error(`not found vite config file`)
+async function loadViteConfig(
+  configRoot: string,
+  configFile: string,
+  optionName: string,
+  mode: FixtureContext['mode']
+): Promise<UserConfig> {
+  DEBUG('loadViteConfig:', configRoot, configFile, optionName, mode)
+  const result = await loadConfig(
+    {
+      command: getViteCommand(mode),
+      mode: getViteMode(mode)
+    },
+    {
+      configFilePath: configFile,
+      configRoot: configRoot
     }
-    DEBUG('loadFixture: loadConfig result -> ', loadResult)
-
-    const loadedConfig = loadResult ? loadResult.config : {}
-    DEBUG('loadFixture: loadedConfig -> ', loadedConfig)
-    mergeTargetConfig = loadedConfig as UserConfig
+  )
+  if (result == null) {
+    console.warn(pc.yellow(pc.bold(`Cannot load from '${optionName}' option`)))
+    return {}
   } else {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    rootDir = ctx.options.rootDir!
-    DEBUG('loadFixture: rootDir -> ', rootDir)
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    mergeTargetConfig = ctx.options.viteConfig! as UserConfig
+    return result.config
   }
-
-  let buildDir: string | undefined
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  if (ctx.options.mode! === 'preview') {
-    ctx.buildDir = buildDir = await mkTmpDir(Math.random().toString(36).slice(2, 8))
-  }
-  DEBUG('loadFixture: buildDir -> ', buildDir)
-
-  ctx.vite = mergeConfig(
-    mergeTargetConfig,
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    mergeConfig(ctx.options.viteConfig!, {
-      logLevel: ctx.options.mode === 'preview' ? 'silent' : 'info',
-      root: rootDir,
-      build: {
-        outDir: buildDir
-      }
-    } as InlineConfig)
-  )
-  DEBUG('loadFixture: final vite config -> ', ctx.vite)
 }
 
-export async function buildFixture() {
+export async function writeViteConfigOptions(options: UserConfig): Promise<string> {
+  const tmp = await mkTmpDir('vite-config-inline')
+  const configTmp = resolve(tmp, 'vite.config.mjs')
+  DEBUG('writeViteConfigOptions: configTmp -> ', configTmp)
+  await fs.writeFile(configTmp, `export default ${toCode(options)}`, 'utf-8')
+  return configTmp
+}
+
+export async function mkBuildDir() {
+  return await mkTmpDir(Math.random().toString(36).slice(2, 8))
+}
+
+export async function prepareFixture() {
   const ctx = useTestContext()
+  if (ctx.options.viteConfig) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    ctx.viteConfigInline = await writeViteConfigOptions(ctx.options.viteConfig!)
+  }
+  if (ctx.options.mode === 'preview') {
+    ctx.buildDir = await mkBuildDir()
+  }
+}
+
+export async function loadFixture(env?: NodeJS.ProcessEnv): Promise<FixtureContext> {
+  const ctx = getFixtureContextFrom(env || process.env)
+  const { mode, root, configFile, viteConfig, viteConfigFile } = ctx
+
+  // check if the fixture is exists
+  if (!(await resolveFixture(root, configFile))) {
+    throw new Error(`fixture is not exists in ${root}`)
+  }
+
+  // vite override config
+  // prettier-ignore
+  ctx.vite = viteConfigFile
+    ? await loadViteConfig(root, resolve(root, viteConfigFile), 'viteConfigFile', mode)
+    : viteConfig
+      ? await loadViteConfig(root, viteConfig, 'viteConfig', mode)
+      : {}
+
+  ctx.vite = mergeConfig(ctx.vite, {
+    root,
+    logLevel: mode === 'preview' ? 'silent' : 'info',
+    build: {
+      outDir: mode === 'preview' ? ctx.buildDir : undefined
+    }
+  } as UserConfig)
+
+  return ctx
+}
+
+export async function buildFixture(ctx: FixtureContext) {
   await build(ctx.vite)
 }

@@ -7,7 +7,7 @@ module.exports = defineConfig({
   plugins: [
     {
       name: 'my-plugin',
-      transform(code, id) {
+      transform: (code, id) => {
         return code
       }
     }
