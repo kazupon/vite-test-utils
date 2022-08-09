@@ -9,8 +9,13 @@ lerna-debug.log*
 
 node_modules
 dist
+build
 dist-ssr
 *.local
+.vercel
+.output
+.vite
+.svelte-kit
 
 # Editor directories and files
 .vscode/*
@@ -28,8 +33,8 @@ dist-ssr
 !.yarn/plugins
 
 .env
+.env.*
 *.tgz
 coverage
-.vite
 package-lock.json
 yarn.lock

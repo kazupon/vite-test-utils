@@ -1,8 +1,8 @@
 import { setup, createPage } from 'vite-test-utils'
 
-await setup()
+await setup({})
 
-test('counting', async () => {
+test('count', async () => {
   const page = await createPage('/')
 
   const button = await page.locator('#counter')
