@@ -14,10 +14,10 @@ test('dev server', async () => {
 
   await startServer()
   await sleep(1000)
-  assert(ctx.url?.startsWith(`http://127.0.0.1:${ctx.port}`))
+  assert(ctx.url?.startsWith(`http://localhost:${ctx.port}`))
   assert(ctx.server != null)
 
-  expect(url('/foo')).toBe(`http://127.0.0.1:${ctx.port}/foo`)
+  expect(url('/foo')).toBe(`http://localhost:${ctx.port}/foo`)
 
   const rawRes = await fetch('/')
   expect(rawRes.status).toBe(200)
@@ -48,10 +48,10 @@ test('preview server', async () => {
 
   await startServer()
   await sleep(1000)
-  assert(ctx.url?.startsWith(`http://127.0.0.1:${ctx.port}`))
+  assert(ctx.url?.startsWith(`http://localhost:${ctx.port}`))
   assert(ctx.server != null)
 
-  expect(url('/foo')).toBe(`http://127.0.0.1:${ctx.port}/foo`)
+  expect(url('/foo')).toBe(`http://localhost:${ctx.port}/foo`)
 
   const rawRes = await fetch('/')
   expect(rawRes.status).toBe(200)

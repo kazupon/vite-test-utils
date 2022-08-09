@@ -29,7 +29,7 @@ export async function startServer() {
   await stopServer()
 
   const port = (ctx.port = await getRandomPort())
-  ctx.url = `http://127.0.0.1:${port}`
+  ctx.url = `http://localhost:${port}`
   DEBUG(`ctx.url: ${ctx.url}`)
 
   const devPath = getServerEntryPoint()
