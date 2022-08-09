@@ -1,3 +1,4 @@
 dist
 coverage
+**/fixtures/**
 .vscode/settings.json

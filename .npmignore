@@ -14,3 +14,4 @@ scripts
 playground
 sandbox
 .vite
+.output
