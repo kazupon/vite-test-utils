@@ -13,36 +13,33 @@ afterAll(() => {
 test('basic', () => {
   // create test context
   const ctx = createTestContext({
-    fixture: 'myFixture',
-    rootDir: '/',
-    testDir: '.',
-    configFile: 'myVite.config',
+    fixtureDir: 'myFixture',
+    configFile: 'vite.dev.config.ts',
     viteConfig: {
       build: {
         outDir: './output'
       }
     },
+    viteConfigFile: '/path/to/myFixture/vite.config.ts',
     mode: 'preview',
     browserOptions: {
       type: 'firefox',
       launch: { headless: true }
     }
   })
-  expect(ctx.options.fixture).toBe('myFixture')
-  expect(ctx.options.rootDir).toBe('/')
-  expect(ctx.options.testDir).toBe('.')
-  expect(ctx.options.configFile).toBe('myVite.config')
+  expect(ctx.options.fixtureDir).toBe('myFixture')
+  expect(ctx.options.configFile).toBe('vite.dev.config.ts')
   expect(ctx.options.viteConfig).toEqual({ build: { outDir: './output' } })
+  expect(ctx.options.viteConfigFile).toBe('/path/to/myFixture/vite.config.ts')
   expect(ctx.options.mode).toBe('preview')
   expect(ctx.options.browserOptions).toEqual({ type: 'firefox', launch: { headless: true } })
 
   // call useTestContext()
   const ctx2 = useTestContext()
-  expect(ctx2.options.fixture).toBe('myFixture')
-  expect(ctx2.options.rootDir).toBe('/')
-  expect(ctx2.options.testDir).toBe('.')
-  expect(ctx2.options.configFile).toBe('myVite.config')
+  expect(ctx2.options.fixtureDir).toBe('myFixture')
+  expect(ctx2.options.configFile).toBe('vite.dev.config.ts')
   expect(ctx2.options.viteConfig).toEqual({ build: { outDir: './output' } })
+  expect(ctx2.options.viteConfigFile).toBe('/path/to/myFixture/vite.config.ts')
   expect(ctx2.options.mode).toBe('preview')
   expect(ctx2.options.browserOptions).toEqual({ type: 'firefox', launch: { headless: true } })
   expect(ctx).toEqual(ctx2)
@@ -54,20 +51,18 @@ test('basic', () => {
 
 test('default options', () => {
   const ctx = createTestContext()
-  expect(ctx.options.fixture).toBe('fixture')
-  expect(ctx.options.rootDir).toBe('/path/to')
-  expect(ctx.options.testDir).toBe('/path/to/test')
-  expect(ctx.options.configFile).toBe('vite.config')
-  expect(ctx.options.viteConfig).toEqual({})
+  expect(ctx.options.fixtureDir).toBe('/path/to')
+  expect(ctx.options.configFile).toBeUndefined()
+  expect(ctx.options.viteConfig).toBeUndefined()
+  expect(ctx.options.viteConfigFile).toBeUndefined()
   expect(ctx.options.mode).toBe('dev')
   expect(ctx.options.browserOptions).toEqual({ type: 'chromium' })
 
   const ctx2 = useTestContext()
-  expect(ctx2.options.fixture).toBe('fixture')
-  expect(ctx2.options.rootDir).toBe('/path/to')
-  expect(ctx2.options.testDir).toBe('/path/to/test')
-  expect(ctx2.options.configFile).toBe('vite.config')
-  expect(ctx2.options.viteConfig).toEqual({})
+  expect(ctx2.options.fixtureDir).toBe('/path/to')
+  expect(ctx2.options.configFile).toBeUndefined()
+  expect(ctx2.options.viteConfig).toBeUndefined()
+  expect(ctx2.options.viteConfigFile).toBeUndefined()
   expect(ctx2.options.mode).toBe('dev')
   expect(ctx2.options.browserOptions).toEqual({ type: 'chromium' })
 })

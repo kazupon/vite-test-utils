@@ -7,8 +7,16 @@ export default defineBuildConfig({
       input: 'src/index',
       outDir: './dist',
       declaration: true
+    },
+    {
+      input: 'src/process',
+      outDir: './dist',
+      declaration: true
     }
   ],
+  replace: {
+    __BUILD__: JSON.stringify(true)
+  },
   rollup: {
     emitCJS: true
   },

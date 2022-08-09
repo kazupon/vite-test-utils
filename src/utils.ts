@@ -5,6 +5,7 @@ import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
 import { build } from 'esbuild'
 import { normalizePath } from 'vite'
+import { isArray, isString, isObject, isFunction, isRegExp } from '@intlify/shared'
 import createDebug from 'debug'
 
 import type { UserConfigExport, ConfigEnv, UserConfig } from 'vite'
@@ -39,14 +40,9 @@ export async function dynamicImport<T>(module: string): Promise<T> {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isObject(value: unknown): value is Record<string, any> {
-  return Object.prototype.toString.call(value) === '[object Object]'
-}
-
 const _require = createRequire(import.meta.url)
 
-async function dynamicImportCompatibility(fileUrl: string, isESM: boolean) {
+export async function dynamicImportCompatibility(fileUrl: string, isESM: boolean) {
   return isESM ? import(fileUrl) : new Function('file', 'return import(file)')(fileUrl)
 }
 
@@ -54,17 +50,26 @@ export async function loadConfig(
   configEnv: ConfigEnv,
   {
     configFile = 'vite.config.ts',
-    configRoot = process.cwd()
+    configRoot = process.cwd(),
+    configFilePath = undefined
   }: {
     configFile?: string
     configRoot?: string
+    configFilePath?: string
   } = {}
 ): Promise<{
   path: string
   config: UserConfig
   dependencies: string[]
 } | null> {
-  const resolvedPath = resolve(configRoot, configFile)
+  DEBUG('loadConfig: configFile ->', configFile)
+  DEBUG('loadConfig: configRoot ->', configRoot)
+  DEBUG('loadConfig: configFilePath ->', configFilePath)
+
+  let resolvedPath = configFilePath
+  if (resolvedPath == null) {
+    resolvedPath = resolve(configRoot, configFile)
+  }
   let isESM = false
   if (/\.m[jt]s$/.test(resolvedPath)) {
     isESM = true
@@ -276,4 +281,44 @@ async function loadConfigFromBundledFile(
     _require.extensions[loaderExt] = defaultLoader
     return raw.__esModule ? raw.default : raw
   }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function stringifyObj(obj: Record<string, any>): string {
+  return `Object({${Object.entries(obj)
+    .map(([key, value]) => `${JSON.stringify(key)}:${toCode(value)}`)
+    .join(`,`)}})`
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function toCode(code: any): string {
+  if (code === null) {
+    return `null`
+  }
+
+  if (code === undefined) {
+    return `undefined`
+  }
+
+  if (isString(code)) {
+    return JSON.stringify(code)
+  }
+
+  if (isRegExp(code) && code.toString) {
+    return code.toString()
+  }
+
+  if (isFunction(code) && code.toString) {
+    return `(${code.toString()})`
+  }
+
+  if (isArray(code)) {
+    return `[${code.map(c => toCode(c)).join(`,`)}]`
+  }
+
+  if (isObject(code)) {
+    return stringifyObj(code)
+  }
+
+  return code + ``
 }

@@ -1,5 +1,6 @@
 import type { Browser, LaunchOptions } from 'playwright'
-import type { UserConfig, ViteDevServer, PreviewServer } from 'vite'
+import type { UserConfig } from 'vite'
+import type { ChildProcess } from 'node:child_process'
 
 /**
  * The Test Context that is used in test utils
@@ -14,13 +15,13 @@ export interface TestContext {
    */
   browser?: Browser
   /**
-   * The Vite config that is resolved by this utils
-   */
-  vite?: UserConfig
-  /**
    * The Vite server instance
    */
-  server?: ViteDevServer | PreviewServer
+  server?: ChildProcess
+  /**
+   * The vite config inline filepath that is configured by `{@link viteConfig}` option
+   */
+  viteConfigInline?: string
   /**
    * The output directory
    */
@@ -40,35 +41,39 @@ export interface TestContext {
  */
 export interface TestOptions {
   /**
-   * The fixture directory path that is relative from `testDir`.
+   * The fixture directory path that is put in your vite application project
    *
-   * @default 'fixture'
-   */
-  fixture?: string
-  /**
-   * The test directory path that is current run by utils.
-   *
-   * @default `process.cwd() + 'test'`
-   */
-  testDir?: string
-  /**
-   * The root directory path that is current run by utils. It’s resolved in priority over that `testDir`
+   * @remarks
+   * If vite-test-utils cannot found vite config in this option, it falls back to `process.cwd()`
    *
    * @default `process.cwd()`
    */
-  rootDir?: string
+  fixtureDir?: string
   /**
-   * The vite config filename. It's used with `rootDir` or `testDir`
+   * The vite config **filename** which is used in test fixture.
    *
-   * @default 'vite.config'
+   * @remarks
+   * If vite config file is specified with this option, it will be respected over the default config file that will be resolved by vite.
+   *
+   * The file for this option is **relative** to the directory specified in the `fixtureDir` option.
    */
   configFile?: string
   /**
    * The vite config that is overrided the config resolved by utils.
    *
-   * @default {}
+   * @remarks
+   * Simply, use this option if you hope override the vite config with **javascript premitive value** such as object or string.
+   *
+   * If you hope set up programmaticaly overrides using like `import` syntax, you must prepare the vite config for the override and specify it with `viteConfigPath`.
    */
   viteConfig?: UserConfig
+  /**
+   * The vite config file path that is overrided the config resolved by utils.
+   *
+   * @remarks
+   * If this option is specified, it's respected than `viteConfig` option.
+   */
+  viteConfigFile?: string
   /**
    * The vite server working mode
    *
