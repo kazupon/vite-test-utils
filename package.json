@@ -42,8 +42,12 @@
   "scripts": {
     "build": "unbuild",
     "test": "vitest run test",
-    "play:vanilla:dev": "pnpm --filter vite-vanilla dev",
+    "play:vanilla": "pnpm --filter vite-vanilla dev",
     "play:vanilla:test": "pnpm --filter vite-vanilla test",
+    "play:vue": "pnpm --filter vite-vue dev",
+    "play:vue:test": "pnpm --filter vite-vue test",
+    "play:svelte": "pnpm --filter vite-svelte dev",
+    "play:svelte:test": "pnpm --filter vite-svelte test",
     "fix": "run-p lint:fix format:fix",
     "format": "prettier --config .prettierrc --ignore-path .prettierignore '**/*.{js,json,html}'",
     "format:fix": "pnpm format -- --write",
@@ -83,7 +87,7 @@
   "pnpm": {
     "overrides": {
       "vite": "^3.0.4",
-      "vitest": "^0.21.0"
+      "vitest": "^0.20.0"
     }
   },
   "gitHooks": {
