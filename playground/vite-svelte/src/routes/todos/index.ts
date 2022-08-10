@@ -31,11 +31,19 @@ export const GET: RequestHandler = async ({ locals }) => {
 export const POST: RequestHandler = async ({ request, locals }) => {
   const form = await request.formData()
 
-  await api('POST', `todos/${locals.userid}`, {
+  const response = await api('POST', `todos/${locals.userid}`, {
     text: form.get('text')
   })
 
-  return {}
+  return {
+    status: response.status,
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: {
+      todo: await response.json()
+    }
+  }
 }
 
 // If the user has JavaScript disabled, the URL will change to

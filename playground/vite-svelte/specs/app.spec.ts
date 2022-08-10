@@ -1,4 +1,4 @@
-import { setup, createPage, fetch } from 'vite-test-utils'
+import { setup, createPage } from 'vite-test-utils'
 
 await setup()
 
