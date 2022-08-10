@@ -14,21 +14,21 @@
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
-    "@types/cookie": "^0.5.1",
-    "svelte": "^3.46.0",
-    "svelte-check": "^2.7.1",
-    "svelte-preprocess": "^4.10.6",
-    "tslib": "^2.3.1",
-    "typescript": "^4.7.4",
-    "vite": "^3.0.0",
-    "formdata-polyfill": "^4.0.10",
-    "playwright": "^1.24.0",
+    "@types/cookie": "0.5.1",
+    "svelte": "3.49.0",
+    "svelte-check": "2.8.0",
+    "svelte-preprocess": "4.10.7",
+    "tslib": "2.4.0",
+    "typescript": "4.7.4",
+    "vite": "3.0.5",
+    "formdata-polyfill": "4.0.10",
+    "playwright": "1.24.2",
     "vite-test-utils": "npm:vite-test-utils-edge@latest",
-    "vitest": "^0.20.0"
+    "vitest": "0.20.3"
   },
   "type": "module",
   "dependencies": {
-    "@fontsource/fira-mono": "^4.5.0",
-    "cookie": "^0.4.1"
+    "@fontsource/fira-mono": "4.5.9",
+    "cookie": "0.4.2"
   }
 }
