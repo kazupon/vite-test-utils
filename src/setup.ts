@@ -43,7 +43,6 @@ function createTest(options: TestOptions = {}) {
   const setup = async () => {
     await prepareFixture()
     await createBrowser()
-    await startServer()
   }
 
   return {
