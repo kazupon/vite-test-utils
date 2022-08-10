@@ -18,6 +18,8 @@ export function createTestContext(options: TestOptions = {}): TestContext {
   const _options = defu(options, {
     fixtureDir: cwd,
     mode: 'dev',
+    server: options.server !== false,
+    browser: !!options.browser,
     browserOptions: {
       type: 'chromium'
     }

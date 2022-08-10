@@ -1,10 +1,10 @@
-import { setup } from '../setup'
-import { createPage } from '../browser'
-import { url } from '../server'
+import { setup } from '../../setup'
+import { createPage } from '../../browser'
+import { url } from '../../server'
 import { fileURLToPath } from 'node:url'
 
 await setup({
-  fixtureDir: fileURLToPath(new URL(`./fixtures/server`, import.meta.url))
+  fixtureDir: fileURLToPath(new URL(`../fixtures/server`, import.meta.url))
 })
 
 test('basic', async () => {
