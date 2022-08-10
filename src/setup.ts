@@ -20,11 +20,9 @@ function createTest(options: TestOptions = {}) {
 
   const beforeEach = async () => {
     setTestContext(ctx)
-    await startServer()
   }
 
   const afterEach = async () => {
-    await stopServer()
     setTestContext(undefined)
   }
 
@@ -42,7 +40,12 @@ function createTest(options: TestOptions = {}) {
 
   const setup = async () => {
     await prepareFixture()
-    await createBrowser()
+    if (ctx.options.server) {
+      await startServer()
+    }
+    if (ctx.options.browser) {
+      await createBrowser()
+    }
   }
 
   return {

@@ -22,6 +22,8 @@ test('basic', () => {
     },
     viteConfigFile: '/path/to/myFixture/vite.config.ts',
     mode: 'preview',
+    server: false,
+    browser: true,
     browserOptions: {
       type: 'firefox',
       launch: { headless: true }
@@ -32,6 +34,8 @@ test('basic', () => {
   expect(ctx.options.viteConfig).toEqual({ build: { outDir: './output' } })
   expect(ctx.options.viteConfigFile).toBe('/path/to/myFixture/vite.config.ts')
   expect(ctx.options.mode).toBe('preview')
+  expect(ctx.options.server).toBe(false)
+  expect(ctx.options.browser).toBe(true)
   expect(ctx.options.browserOptions).toEqual({ type: 'firefox', launch: { headless: true } })
 
   // call useTestContext()
@@ -41,6 +45,8 @@ test('basic', () => {
   expect(ctx2.options.viteConfig).toEqual({ build: { outDir: './output' } })
   expect(ctx2.options.viteConfigFile).toBe('/path/to/myFixture/vite.config.ts')
   expect(ctx2.options.mode).toBe('preview')
+  expect(ctx2.options.server).toBe(false)
+  expect(ctx2.options.browser).toBe(true)
   expect(ctx2.options.browserOptions).toEqual({ type: 'firefox', launch: { headless: true } })
   expect(ctx).toEqual(ctx2)
 
@@ -56,6 +62,8 @@ test('default options', () => {
   expect(ctx.options.viteConfig).toBeUndefined()
   expect(ctx.options.viteConfigFile).toBeUndefined()
   expect(ctx.options.mode).toBe('dev')
+  expect(ctx.options.server).toBe(true)
+  expect(ctx.options.browser).toBe(false)
   expect(ctx.options.browserOptions).toEqual({ type: 'chromium' })
 
   const ctx2 = useTestContext()
@@ -64,5 +72,7 @@ test('default options', () => {
   expect(ctx2.options.viteConfig).toBeUndefined()
   expect(ctx2.options.viteConfigFile).toBeUndefined()
   expect(ctx2.options.mode).toBe('dev')
+  expect(ctx2.options.server).toBe(true)
+  expect(ctx2.options.browser).toBe(false)
   expect(ctx2.options.browserOptions).toEqual({ type: 'chromium' })
 })

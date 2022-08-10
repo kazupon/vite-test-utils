@@ -23,6 +23,15 @@ function getServerEntryPoint() {
   return devPath
 }
 
+/**
+ * Start the vite server
+ *
+ * If `mode` option is `dev`, vite-test-utils will start vite dev server instance.
+ *
+ * Else `mode` option is `preview`, vite-test-tuils will build your vite test fixture, and start vite preview server instance.
+ *
+ * Vite dev server and vite preview server is started **with child process**.
+ */
 export async function startServer() {
   const ctx = useTestContext()
 
@@ -66,6 +75,11 @@ export async function startServer() {
   throw new Error('Timeout waiting for dev server!')
 }
 
+/**
+ * Stop the vite server
+ *
+ * vite-test-utils will stop vite server instan with {@link startServer}.
+ */
 export async function stopServer() {
   const ctx = useTestContext()
   if (ctx.server) {
@@ -84,7 +98,7 @@ export async function stopServer() {
 export function url(path: string) {
   const ctx = useTestContext()
   if (!ctx.url) {
-    throw new Error('url is not available (is server option enabled?)')
+    throw new Error('url is not available (is `server` option enabled?)')
   }
   return ctx.url + path
 }
