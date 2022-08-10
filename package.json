@@ -46,6 +46,8 @@
     "play:vanilla:test": "pnpm --filter vite-vanilla test",
     "play:vue": "pnpm --filter vite-vue dev",
     "play:vue:test": "pnpm --filter vite-vue test",
+    "play:react": "pnpm --filter vite-react dev",
+    "play:react:test": "pnpm --filter vite-react test",
     "play:svelte": "pnpm --filter vite-svelte dev",
     "play:svelte:test": "pnpm --filter vite-svelte test",
     "fix": "run-p lint:fix format:fix",
