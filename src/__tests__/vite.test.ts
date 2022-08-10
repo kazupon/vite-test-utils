@@ -1,6 +1,7 @@
 import { fileURLToPath } from 'node:url'
 import { createTestContext } from '../context'
 import { loadFixture, prepareFixture, getFixtureContextFrom, writeViteConfigOptions } from '../vite'
+import { vi } from 'vitest'
 
 import type { FixtureContext } from '../vite'
 
@@ -91,6 +92,16 @@ const CHECK_CONFIG = {
 }
 
 describe('loadFixture', async () => {
+  let orgWarn: typeof console.warn
+  beforeEach(() => {
+    orgWarn = console.warn
+    console.warn = vi.fn()
+  })
+
+  afterEach(() => {
+    console.warn = orgWarn
+  })
+
   test('basic', async () => {
     const ctx = createTestContext({
       fixtureDir: fileURLToPath(new URL(`./fixtures/vite`, import.meta.url)),
@@ -180,6 +191,7 @@ describe('loadFixture', async () => {
     process.env.__VTU_FIXTURE_BUILD_DIR = ctx.buildDir
 
     const fixtureCtx = await loadFixture(process.env)
+    expect(console.warn).toHaveBeenCalledTimes(2)
     expect(fixtureCtx.vite?.build?.outDir).toBe(ctx.buildDir)
   })
 })
