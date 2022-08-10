@@ -42,6 +42,7 @@
   "scripts": {
     "build": "unbuild",
     "test": "vitest run test",
+    "test:play": "run-p play:*:test",
     "play:vanilla": "pnpm --filter vite-vanilla dev",
     "play:vanilla:test": "pnpm --filter vite-vanilla test",
     "play:vue": "pnpm --filter vite-vue dev",

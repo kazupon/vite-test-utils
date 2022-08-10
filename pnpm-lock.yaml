@@ -85,7 +85,7 @@ importers:
       playwright: 1.24.2
       typescript: 4.7.4
       vite: 3.0.5
-      vite-test-utils: /vite-test-utils-edge/0.1.1-27667329.acc84bb
+      vite-test-utils: /vite-test-utils-edge/0.1.1-27668413.e35a605
       vitest: 0.20.3
 
   playground/vite-svelte:
@@ -120,7 +120,7 @@ importers:
       tslib: 2.4.0
       typescript: 4.7.4
       vite: 3.0.5
-      vite-test-utils: /vite-test-utils-edge/0.1.1-27667329.acc84bb
+      vite-test-utils: /vite-test-utils-edge/0.1.1-27668413.e35a605
       vitest: 0.20.3
 
   playground/vite-vanilla:
@@ -134,7 +134,7 @@ importers:
       playwright: 1.24.2
       typescript: 4.7.4
       vite: 3.0.5
-      vite-test-utils: /vite-test-utils-edge/0.1.1-27667329.acc84bb
+      vite-test-utils: /vite-test-utils-edge/0.1.1-27668413.e35a605
       vitest: 0.20.3
 
   playground/vite-vue:
@@ -162,7 +162,7 @@ importers:
       playwright: 1.24.2
       typescript: 4.7.4
       vite: 3.0.5
-      vite-test-utils: /vite-test-utils-edge/0.1.1-27667329.acc84bb
+      vite-test-utils: /vite-test-utils-edge/0.1.1-27668413.e35a605
       vitest: 0.20.3
       vue-tsc: 0.38.9_typescript@4.7.4
 
@@ -4118,8 +4118,8 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vite-test-utils-edge/0.1.1-27667329.acc84bb:
-    resolution: {integrity: sha512-ToRyLKrE4w1Do1AARQX7FepF2YOv1myHpd5LSTVPCcV+0uAUg8yAsH17LhDE3RfazlOkfA1nRAI83Cx7H+9hNg==}
+  /vite-test-utils-edge/0.1.1-27668413.e35a605:
+    resolution: {integrity: sha512-TXUi2AoXf5hiXiBIktXNdo3LkQSPvafqdJ8XoWaWOkAtJV0UD7tHDyuyheQM1Fho+fXytdGbT6PhWjGcFO7OJg==}
     engines: {node: '>= 14.18'}
     dependencies:
       '@intlify/shared': 9.2.2
