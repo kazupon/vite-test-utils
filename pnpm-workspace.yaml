@@ -1,4 +1,2 @@
 packages:
   - 'playground/*'
-  - '!playground/vite-vue'
-  - '!playground/vite-svelte'

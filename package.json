@@ -42,13 +42,19 @@
   "scripts": {
     "build": "unbuild",
     "test": "vitest run test",
-    "play:vanilla:dev": "pnpm --filter vite-vanilla dev",
+    "play:vanilla": "pnpm --filter vite-vanilla dev",
     "play:vanilla:test": "pnpm --filter vite-vanilla test",
+    "play:vue": "pnpm --filter vite-vue dev",
+    "play:vue:test": "pnpm --filter vite-vue test",
+    "play:react": "pnpm --filter vite-react dev",
+    "play:react:test": "pnpm --filter vite-react test",
+    "play:svelte": "pnpm --filter vite-svelte dev",
+    "play:svelte:test": "pnpm --filter vite-svelte test",
     "fix": "run-p lint:fix format:fix",
     "format": "prettier --config .prettierrc --ignore-path .prettierignore '**/*.{js,json,html}'",
-    "format:fix": "pnpm format -- --write",
+    "format:fix": "pnpm format --write",
     "lint": "eslint --config .eslintrc.cjs --ext .js,.ts,.vue,.jsx,.tsx,.svelte,.json .",
-    "lint:fix": "pnpm lint -- --fix"
+    "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
     "@intlify/shared": "^9.2.2",
@@ -82,8 +88,8 @@
   },
   "pnpm": {
     "overrides": {
-      "vite": "^3.0.4",
-      "vitest": "^0.21.0"
+      "vite": "^3.0.5",
+      "vitest": "^0.20.0"
     }
   },
   "gitHooks": {
