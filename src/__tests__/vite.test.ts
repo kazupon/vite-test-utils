@@ -170,18 +170,16 @@ describe('loadFixture', async () => {
 
   test('no config fixture', async () => {
     const ctx = createTestContext({
-      fixtureDir: fileURLToPath(new URL(`./fixtures/no-config`, import.meta.url))
+      fixtureDir: fileURLToPath(new URL(`./fixtures/no-config`, import.meta.url)),
+      mode: 'preview'
     })
     await prepareFixture()
     process.env.__VTU_FIXTURE_ROOT = ctx.options.fixtureDir
     process.env.__VTU_FIXTURE_VITE_CONFIG = ctx.viteConfigInline || ''
+    process.env.__VTU_MODE = ctx.options.mode
+    process.env.__VTU_FIXTURE_BUILD_DIR = ctx.buildDir
 
-    let err = false
-    try {
-      const fixtureCtx = await loadFixture(process.env)
-    } catch {
-      err = true
-    }
-    expect(err).toBe(true)
+    const fixtureCtx = await loadFixture(process.env)
+    expect(fixtureCtx.vite?.build?.outDir).toBe(ctx.buildDir)
   })
 })

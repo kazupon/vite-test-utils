@@ -172,7 +172,14 @@ export async function loadFixture(env?: NodeJS.ProcessEnv): Promise<FixtureConte
 
   // check if the fixture is exists
   if (!(await resolveFixture(root, configFile))) {
-    throw new Error(`fixture is not exists in ${root}`)
+    console.warn(pc.yellow(pc.bold(`vite config has been not found in ${root}`)))
+    console.warn(
+      pc.yellow(
+        pc.bold(
+          'The fixture that will work from now on will follow the vite defaults or you have specified options that are `viteConfig` or `viteConfigFile` options.'
+        )
+      )
+    )
   }
 
   // vite override config
