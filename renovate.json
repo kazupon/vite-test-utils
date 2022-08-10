@@ -3,7 +3,7 @@
   "extends": ["config:base", ":preserveSemverRanges"],
   "labels": ["dependency"],
   "automerge": true,
-  "ignoreDeps": [],
+  "ignoreDeps": ["vitest"],
   "major": {
     "automerge": false
   }
