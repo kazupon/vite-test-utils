@@ -24,7 +24,7 @@
     "formdata-polyfill": "^4.0.10",
     "playwright": "^1.24.0",
     "vite-test-utils": "npm:vite-test-utils-edge@latest",
-    "vitest": "^0.20.0"
+    "vitest": "^0.21.0"
   },
   "type": "module",
   "dependencies": {
