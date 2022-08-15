@@ -41,19 +41,19 @@ export interface TestContext {
  */
 export interface TestOptions {
   /**
-   * The fixture directory path that is put in your vite application project
+   * The root directory path that is put in your vite application project
    *
-   * If vite-test-utils cannot found vite config in this option, it falls back to `process.cwd()`
+   * If vite-test-utils could not find vite config in this option, it falls back to `process.cwd()`
    *
    * @default `process.cwd()`
    */
-  fixtureDir?: string
+  rootDir?: string
   /**
    * The vite config **filename** which is used in test fixture.
    *
    * If vite config file is specified with this option, it will be respected over the default config file that will be resolved by vite.
    *
-   * The file for this option is **relative** to the directory specified in the `fixtureDir` option.
+   * The file for this option is **relative** to the directory specified in the `rootDir` option.
    */
   configFile?: string
   /**

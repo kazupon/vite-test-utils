@@ -104,7 +104,7 @@ describe('loadFixture', async () => {
 
   test('basic', async () => {
     const ctx = createTestContext({
-      fixtureDir: fileURLToPath(new URL(`./fixtures/vite`, import.meta.url)),
+      rootDir: fileURLToPath(new URL(`./fixtures/vite`, import.meta.url)),
       viteConfig: {
         define: {
           __VERSION__: '"1.0.0"'
@@ -112,11 +112,11 @@ describe('loadFixture', async () => {
       }
     })
     await prepareFixture()
-    process.env.__VTU_FIXTURE_ROOT = ctx.options.fixtureDir
+    process.env.__VTU_FIXTURE_ROOT = ctx.options.rootDir
     process.env.__VTU_FIXTURE_VITE_CONFIG = ctx.viteConfigInline
 
     const fixtureCtx = await loadFixture(process.env)
-    expect(fixtureCtx.root).toBe(ctx.options.fixtureDir)
+    expect(fixtureCtx.root).toBe(ctx.options.rootDir)
     expect(fixtureCtx.viteConfig).toBe(ctx.viteConfigInline)
     expect(fixtureCtx.vite).toMatchObject({
       define: {
@@ -127,7 +127,7 @@ describe('loadFixture', async () => {
 
   test('configFile', async () => {
     const ctx = createTestContext({
-      fixtureDir: fileURLToPath(new URL(`./fixtures/vite`, import.meta.url)),
+      rootDir: fileURLToPath(new URL(`./fixtures/vite`, import.meta.url)),
       configFile: 'vite.config.dev.ts',
       viteConfig: {
         define: {
@@ -136,12 +136,12 @@ describe('loadFixture', async () => {
       }
     })
     await prepareFixture()
-    process.env.__VTU_FIXTURE_ROOT = ctx.options.fixtureDir
+    process.env.__VTU_FIXTURE_ROOT = ctx.options.rootDir
     process.env.__VTU_FIXTURE_CONFIG_FILE = ctx.options.configFile
     process.env.__VTU_FIXTURE_VITE_CONFIG = ctx.viteConfigInline
 
     const fixtureCtx = await loadFixture(process.env)
-    expect(fixtureCtx.root).toBe(ctx.options.fixtureDir)
+    expect(fixtureCtx.root).toBe(ctx.options.rootDir)
     expect(fixtureCtx.viteConfig).toBe(ctx.viteConfigInline)
     expect(fixtureCtx.vite).toMatchObject({
       define: {
@@ -152,26 +152,26 @@ describe('loadFixture', async () => {
 
   test('viteConfigFile', async () => {
     const ctx = createTestContext({
-      fixtureDir: fileURLToPath(new URL(`./fixtures/vite`, import.meta.url)),
+      rootDir: fileURLToPath(new URL(`./fixtures/vite`, import.meta.url)),
       viteConfigFile: 'vite.programmatic.config.ts'
     })
     await prepareFixture()
-    process.env.__VTU_FIXTURE_ROOT = ctx.options.fixtureDir
+    process.env.__VTU_FIXTURE_ROOT = ctx.options.rootDir
     process.env.__VTU_FIXTURE_CONFIG_FILE = ctx.options.configFile
     process.env.__VTU_FIXTURE_VITE_CONFIG_FILE = ctx.options.viteConfigFile
 
     const fixtureCtx = await loadFixture(process.env)
-    expect(fixtureCtx.root).toBe(ctx.options.fixtureDir)
+    expect(fixtureCtx.root).toBe(ctx.options.rootDir)
     expect(fixtureCtx.vite).toHaveProperty('plugins')
   })
 
   test('preview', async () => {
     const ctx = createTestContext({
-      fixtureDir: fileURLToPath(new URL(`./fixtures/vite`, import.meta.url)),
+      rootDir: fileURLToPath(new URL(`./fixtures/vite`, import.meta.url)),
       mode: 'preview'
     })
     await prepareFixture()
-    process.env.__VTU_FIXTURE_ROOT = ctx.options.fixtureDir
+    process.env.__VTU_FIXTURE_ROOT = ctx.options.rootDir
     process.env.__VTU_MODE = ctx.options.mode
     process.env.__VTU_FIXTURE_BUILD_DIR = ctx.buildDir
 
@@ -181,11 +181,11 @@ describe('loadFixture', async () => {
 
   test('no config fixture', async () => {
     const ctx = createTestContext({
-      fixtureDir: fileURLToPath(new URL(`./fixtures/no-config`, import.meta.url)),
+      rootDir: fileURLToPath(new URL(`./fixtures/no-config`, import.meta.url)),
       mode: 'preview'
     })
     await prepareFixture()
-    process.env.__VTU_FIXTURE_ROOT = ctx.options.fixtureDir
+    process.env.__VTU_FIXTURE_ROOT = ctx.options.rootDir
     process.env.__VTU_FIXTURE_VITE_CONFIG = ctx.viteConfigInline || ''
     process.env.__VTU_MODE = ctx.options.mode
     process.env.__VTU_FIXTURE_BUILD_DIR = ctx.buildDir

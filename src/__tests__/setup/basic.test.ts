@@ -4,7 +4,7 @@ import { url } from '../../server'
 import { fileURLToPath } from 'node:url'
 
 await setup({
-  fixtureDir: fileURLToPath(new URL(`../fixtures/server`, import.meta.url))
+  rootDir: fileURLToPath(new URL(`../fixtures/server`, import.meta.url))
 })
 
 test('basic', async () => {

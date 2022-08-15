@@ -13,7 +13,7 @@ afterAll(() => {
 test('basic', () => {
   // create test context
   const ctx = createTestContext({
-    fixtureDir: 'myFixture',
+    rootDir: 'myFixture',
     configFile: 'vite.dev.config.ts',
     viteConfig: {
       build: {
@@ -29,7 +29,7 @@ test('basic', () => {
       launch: { headless: true }
     }
   })
-  expect(ctx.options.fixtureDir).toBe('myFixture')
+  expect(ctx.options.rootDir).toBe('myFixture')
   expect(ctx.options.configFile).toBe('vite.dev.config.ts')
   expect(ctx.options.viteConfig).toEqual({ build: { outDir: './output' } })
   expect(ctx.options.viteConfigFile).toBe('/path/to/myFixture/vite.config.ts')
@@ -40,7 +40,7 @@ test('basic', () => {
 
   // call useTestContext()
   const ctx2 = useTestContext()
-  expect(ctx2.options.fixtureDir).toBe('myFixture')
+  expect(ctx2.options.rootDir).toBe('myFixture')
   expect(ctx2.options.configFile).toBe('vite.dev.config.ts')
   expect(ctx2.options.viteConfig).toEqual({ build: { outDir: './output' } })
   expect(ctx2.options.viteConfigFile).toBe('/path/to/myFixture/vite.config.ts')
@@ -57,7 +57,7 @@ test('basic', () => {
 
 test('default options', () => {
   const ctx = createTestContext()
-  expect(ctx.options.fixtureDir).toBe('/path/to')
+  expect(ctx.options.rootDir).toBe('/path/to')
   expect(ctx.options.configFile).toBeUndefined()
   expect(ctx.options.viteConfig).toBeUndefined()
   expect(ctx.options.viteConfigFile).toBeUndefined()
@@ -67,7 +67,7 @@ test('default options', () => {
   expect(ctx.options.browserOptions).toEqual({ type: 'chromium' })
 
   const ctx2 = useTestContext()
-  expect(ctx2.options.fixtureDir).toBe('/path/to')
+  expect(ctx2.options.rootDir).toBe('/path/to')
   expect(ctx2.options.configFile).toBeUndefined()
   expect(ctx2.options.viteConfig).toBeUndefined()
   expect(ctx2.options.viteConfigFile).toBeUndefined()
