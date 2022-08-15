@@ -8,7 +8,7 @@ const __dirname = fileURLToPath(new URL(`./fixtures/server`, import.meta.url))
 
 test('dev server', async () => {
   const ctx = createTestContext({
-    fixtureDir: __dirname
+    rootDir: __dirname
   })
   await prepareFixture()
 
@@ -41,7 +41,7 @@ test('dev server', async () => {
 
 test('preview server', async () => {
   const ctx = createTestContext({
-    fixtureDir: __dirname,
+    rootDir: __dirname,
     mode: 'preview'
   })
   await prepareFixture()

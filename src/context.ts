@@ -16,7 +16,7 @@ let currentContext: TestContext | undefined
 export function createTestContext(options: TestOptions = {}): TestContext {
   const cwd = process.cwd()
   const _options = defu(options, {
-    fixtureDir: cwd,
+    rootDir: cwd,
     mode: 'dev',
     server: options.server !== false,
     browser: !!options.browser,

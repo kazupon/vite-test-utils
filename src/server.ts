@@ -45,14 +45,14 @@ export async function startServer() {
   DEBUG('devPath: ', devPath)
 
   ctx.server = await spawn('jiti', [devPath], {
-    cwd: ctx.options.fixtureDir,
+    cwd: ctx.options.rootDir,
     stdio: 'inherit',
     env: {
       ...process.env,
       __VTU_PORT: String(port),
       __VTU_MODE: ctx.options.mode,
       __VTU_FIXTURE_BUILD_DIR: ctx.buildDir,
-      __VTU_FIXTURE_ROOT: ctx.options.fixtureDir,
+      __VTU_FIXTURE_ROOT: ctx.options.rootDir,
       __VTU_FIXTURE_CONFIG_FILE: ctx.options.configFile,
       __VTU_FIXTURE_VITE_CONFIG: ctx.viteConfigInline,
       __VTU_FIXTURE_VITE_CONFIG_FILE: ctx.options.viteConfigFile,
