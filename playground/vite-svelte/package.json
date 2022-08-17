@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
-    "@sveltejs/kit": "1.0.0-next.415",
+    "@sveltejs/kit": "1.0.0-next.417",
     "@types/cookie": "^0.5.1",
     "svelte": "^3.46.0",
     "svelte-check": "^2.7.1",
