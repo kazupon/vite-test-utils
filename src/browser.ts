@@ -52,3 +52,5 @@ export async function createPage(path?: string, options?: BrowserContextOptions)
 
   return page
 }
+
+export type CreatePage = typeof createPage
