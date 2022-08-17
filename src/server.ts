@@ -130,3 +130,9 @@ export function fetch(path: string, options?: any) {
 export function $fetch(path: string, options?: FetchOptions) {
   return _$fetch(url(path), options)
 }
+
+export type StartServer = typeof startServer
+export type StopServer = typeof stopServer
+export type Url = typeof url
+export type Fetch = typeof fetch
+export type $Fetch = typeof $fetch
