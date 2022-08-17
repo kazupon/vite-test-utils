@@ -118,6 +118,8 @@ export function fetch(path: string, options?: any) {
   return _fetch(url(path), options)
 }
 
+type _ResponseType = 'blob' | 'text' | 'arrayBuffer' | 'json'
+
 /**
  * Hight level fetch API
  *
@@ -127,8 +129,12 @@ export function fetch(path: string, options?: any) {
  * @param {string} path - The path of fetch request
  * @param {FetchOptions} [options] - The options of fetch request, optional
  */
-export function $fetch(path: string, options?: FetchOptions) {
-  return _$fetch(url(path), options)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function $fetch<T = any, R extends _ResponseType = 'json'>(
+  path: string,
+  options?: FetchOptions<R>
+): ReturnType<typeof _$fetch> {
+  return _$fetch<T, R>(url(path), options)
 }
 
 export type StartServer = typeof startServer
