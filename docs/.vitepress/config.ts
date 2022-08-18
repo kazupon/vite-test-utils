@@ -54,7 +54,10 @@ function sidebarGuide() {
     {
       text: 'Introduction',
       collapsible: true,
-      items: [{ text: 'Getting Started', link: '/guide/getting-started' }]
+      items: [
+        { text: 'Credits', link: '/guide/credits' },
+        { text: 'Getting Started', link: '/guide/getting-started' }
+      ]
     },
     {
       text: 'Writing Tests',
