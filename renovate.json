@@ -3,7 +3,7 @@
   "extends": ["config:base", ":preserveSemverRanges"],
   "labels": ["dependency"],
   "automerge": true,
-  "ignoreDeps": ["vitest"],
+  "ignoreDeps": ["vitest", "@sveltejs/kit"],
   "major": {
     "automerge": false
   }
