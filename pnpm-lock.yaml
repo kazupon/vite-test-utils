@@ -92,7 +92,7 @@ importers:
     specifiers:
       '@fontsource/fira-mono': ^4.5.0
       '@sveltejs/adapter-auto': next
-      '@sveltejs/kit': 1.0.0-next.417
+      '@sveltejs/kit': 1.0.0-next.420
       '@types/cookie': ^0.5.1
       cookie: ^0.5.0
       formdata-polyfill: ^4.0.10
@@ -110,7 +110,7 @@ importers:
       cookie: 0.5.0
     devDependencies:
       '@sveltejs/adapter-auto': 1.0.0-next.64
-      '@sveltejs/kit': 1.0.0-next.417_svelte@3.49.0+vite@3.0.5
+      '@sveltejs/kit': 1.0.0-next.420_svelte@3.49.0+vite@3.0.5
       '@types/cookie': 0.5.1
       formdata-polyfill: 4.0.10
       playwright: 1.24.2
@@ -723,8 +723,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.417_svelte@3.49.0+vite@3.0.5:
-    resolution: {integrity: sha512-ejnwVq4Uz2uraASHC9eBfSEGhr9j67w01jQENyOOX5TrQPnVGmyjL3dWaTDU0x8O8XdcW3syV469me8Wjq1/pQ==}
+  /@sveltejs/kit/1.0.0-next.420_svelte@3.49.0+vite@3.0.5:
+    resolution: {integrity: sha512-9m/uWbd7Osj474TrkjRZ2x784PZzO6akxDFGfaEoFS5AsRUnDFRJ0HWHHdymy170aJsvlu20ZpLTNbbS5a95+g==}
     engines: {node: '>=16.9'}
     hasBin: true
     requiresBuild: true
@@ -733,7 +733,6 @@ packages:
       vite: ^3.0.0
     dependencies:
       '@sveltejs/vite-plugin-svelte': 1.0.1_svelte@3.49.0+vite@3.0.5
-      chokidar: 3.5.3
       cookie: 0.5.0
       devalue: 2.0.1
       kleur: 4.1.5
