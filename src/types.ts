@@ -2,9 +2,6 @@ import type { Browser, LaunchOptions } from 'playwright'
 import type { UserConfig } from 'vite'
 import type { ChildProcess } from 'node:child_process'
 
-import type { CreatePage } from './browser'
-import type { StartServer, StopServer, Url, Fetch, $Fetch } from './server'
-
 /**
  * The Test Context that is used in test utils
  */
@@ -114,13 +111,4 @@ export interface TestOptions {
      */
     launch?: LaunchOptions
   }
-}
-
-export interface TestUtilsContext {
-  createPage: CreatePage
-  startServer: StartServer
-  stopServer: StopServer
-  url: Url
-  fetch: Fetch
-  $fetch: $Fetch
 }
