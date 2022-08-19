@@ -90,7 +90,7 @@ export interface TestOptions {
   /**
    * Whether to start the server while running `setup`
    *
-   * @default true
+   * @default false
    */
   server?: boolean
   /**

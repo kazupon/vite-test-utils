@@ -15,11 +15,12 @@ let currentContext: TestContext | undefined
 
 export function createTestContext(options: TestOptions = {}): TestContext {
   const cwd = process.cwd()
+  const browser = !!options.browser
   const _options = defu(options, {
     rootDir: cwd,
     mode: 'dev',
-    server: options.server !== false,
-    browser: !!options.browser,
+    server: browser ? true : !!options.server,
+    browser,
     browserOptions: {
       type: 'chromium'
     }
