@@ -57,6 +57,8 @@ export interface TestOptions {
    * If vite config file is specified with this option, it will be respected over the default config file that will be resolved by vite.
    *
    * The file for this option is **relative** to the directory specified in the `rootDir` option.
+   *
+   * @default `'vite.config.ts' | 'vite.config.js' | 'vite.config.mjs' | 'vite.config.mts' | 'vite.config.cjs' | 'vite.config.cts'`
    */
   configFile?: string
   /**
@@ -65,12 +67,16 @@ export interface TestOptions {
    * Simply, use this option if you hope override the vite config with **javascript premitive value** such as object or string.
    *
    * If you hope set up programmaticaly overrides using like `import` syntax, you must prepare the vite config for the override and specify it with `viteConfigPath`.
+   *
+   * @default `{}`
    */
   viteConfig?: UserConfig
   /**
    * The vite config file path that is overrided the config resolved by utils.
    *
    * If this option is specified, it's respected than `viteConfig` option.
+   *
+   * @default `undefined`
    */
   viteConfigFile?: string
   /**
