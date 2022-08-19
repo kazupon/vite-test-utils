@@ -2,7 +2,9 @@ import { setup } from '../../setup'
 import { fileURLToPath } from 'node:url'
 
 await setup({
-  rootDir: fileURLToPath(new URL(`../fixtures/server`, import.meta.url))
+  rootDir: fileURLToPath(new URL(`../fixtures/server`, import.meta.url)),
+  server: true,
+  browser: true
 })
 
 test('basic', async ({ utils: { createPage, url } }) => {

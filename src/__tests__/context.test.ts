@@ -62,7 +62,7 @@ test('default options', () => {
   expect(ctx.options.viteConfig).toBeUndefined()
   expect(ctx.options.viteConfigFile).toBeUndefined()
   expect(ctx.options.mode).toBe('dev')
-  expect(ctx.options.server).toBe(true)
+  expect(ctx.options.server).toBe(false)
   expect(ctx.options.browser).toBe(false)
   expect(ctx.options.browserOptions).toEqual({ type: 'chromium' })
 
@@ -72,7 +72,7 @@ test('default options', () => {
   expect(ctx2.options.viteConfig).toBeUndefined()
   expect(ctx2.options.viteConfigFile).toBeUndefined()
   expect(ctx2.options.mode).toBe('dev')
-  expect(ctx2.options.server).toBe(true)
+  expect(ctx2.options.server).toBe(false)
   expect(ctx2.options.browser).toBe(false)
   expect(ctx2.options.browserOptions).toEqual({ type: 'chromium' })
 })
