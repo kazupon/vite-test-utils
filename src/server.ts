@@ -136,9 +136,3 @@ export function $fetch<T = any, R extends _ResponseType = 'json'>(
 ): ReturnType<typeof _$fetch> {
   return _$fetch<T, R>(url(path), options)
 }
-
-export type StartServer = typeof startServer
-export type StopServer = typeof stopServer
-export type Url = typeof url
-export type Fetch = typeof fetch
-export type $Fetch = typeof $fetch

@@ -8,33 +8,18 @@
  */
 
 import { createTestContext, setTestContext } from './context'
-import { startServer, stopServer, url, $fetch, fetch } from './server'
+import { startServer, stopServer } from './server'
 import { prepareFixture } from './vite'
-import { createBrowser, createPage } from './browser'
+import { createBrowser } from './browser'
 import { dynamicImport } from './utils'
 
-import type { TestOptions, TestUtilsContext } from './types'
-import type { TestContext } from 'vitest'
-
-declare module 'vitest' {
-  export interface TestContext {
-    utils: TestUtilsContext
-  }
-}
+import type { TestOptions } from './types'
 
 function createTest(options: TestOptions = {}) {
   const ctx = createTestContext(options)
 
-  const beforeEach = async (_ctx: TestContext) => {
+  const beforeEach = async () => {
     setTestContext(ctx)
-    _ctx.utils = {
-      createPage,
-      startServer,
-      stopServer,
-      url,
-      fetch,
-      $fetch
-    }
   }
 
   const afterEach = async () => {
