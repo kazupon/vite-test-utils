@@ -1,0 +1,14 @@
+{
+  "name": "@vite-test-utils/docs",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "vitepress": "^1.0.0-alpha.8",
+    "vue": "^3.2.36"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:serve": "vitepress serve"
+  }
+}

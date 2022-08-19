@@ -4,6 +4,7 @@ import { createBrowser, createPage } from '../browser'
 describe('createBrowser', () => {
   test('basic', async () => {
     const ctx = createTestContext({
+      browser: true,
       browserOptions: {
         type: 'chromium'
       }
@@ -14,6 +15,7 @@ describe('createBrowser', () => {
 
   test('invalid browser', async () => {
     createTestContext({
+      browser: true,
       browserOptions: {
         type: 'foo' as 'chromium'
       }
@@ -30,7 +32,9 @@ describe('createBrowser', () => {
 
 describe('createPage', () => {
   test('basic', async () => {
-    createTestContext()
+    createTestContext({
+      browser: true
+    })
     const page = await createPage()
     expect(page).toBeDefined()
   })
