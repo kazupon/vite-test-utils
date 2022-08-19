@@ -38,7 +38,7 @@ function createTest(options: TestOptions = {}) {
     }
   }
 
-  const setup = async () => {
+  const beforeAll = async () => {
     await prepareFixture()
     if (ctx.options.server) {
       await startServer()
@@ -52,7 +52,7 @@ function createTest(options: TestOptions = {}) {
     beforeEach,
     afterEach,
     afterAll,
-    setup,
+    beforeAll,
     ctx
   }
 }
@@ -71,7 +71,7 @@ export async function setup(options: TestOptions = {}) {
   const vitest = await dynamicImport<typeof import('vitest')>('vitest')
   const hooks = createTest(options)
 
-  vitest.beforeAll(hooks.setup, 120 * 1000)
+  vitest.beforeAll(hooks.beforeAll, 120 * 1000)
   vitest.afterAll(hooks.afterAll)
   vitest.beforeEach(hooks.beforeEach)
   vitest.afterEach(hooks.afterEach)
