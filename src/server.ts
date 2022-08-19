@@ -133,6 +133,6 @@ type _ResponseType = 'blob' | 'text' | 'arrayBuffer' | 'json'
 export function $fetch<T = any, R extends _ResponseType = 'json'>(
   path: string,
   options?: FetchOptions<R>
-): ReturnType<typeof _$fetch> {
+): ReturnType<typeof _$fetch<T, R>> {
   return _$fetch<T, R>(url(path), options)
 }
