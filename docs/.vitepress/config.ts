@@ -64,7 +64,8 @@ function sidebarGuide() {
       collapsible: true,
       items: [
         { text: 'Setup', link: '/guide/setup' },
-        { text: 'Testing in a browser', link: '/guide/browser' }
+        { text: 'Testing for browser', link: '/guide/browser' },
+        { text: 'Testing for server', link: '/guide/server' }
       ]
     }
   ]

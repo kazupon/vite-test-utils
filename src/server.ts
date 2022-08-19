@@ -109,7 +109,7 @@ export function url(path: string) {
  * @remarks
  * This function is delegated with {@link ohmyfetch https://github.com/unjs/ohmyfetch}
  *
- * @param {string} path - The path of fetch request
+ * @param {string} path - The path of fetch request. you can specify a path starting from root (e.g. `/foo`)
  * @param {any} [options] - The options of fetch request, optional
  * @returns {Response} The response of fetch request
  */

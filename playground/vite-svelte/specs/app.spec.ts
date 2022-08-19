@@ -1,6 +1,8 @@
 import { setup, createPage } from 'vite-test-utils'
 
-await setup()
+await setup({
+  browser: true
+})
 
 test('count', async () => {
   const page = await createPage('/')

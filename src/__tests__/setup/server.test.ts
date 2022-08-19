@@ -5,7 +5,8 @@ import { fileURLToPath } from 'node:url'
 
 await setup({
   rootDir: fileURLToPath(new URL(`../fixtures/server`, import.meta.url)),
-  server: true
+  server: true,
+  browser: true
 })
 
 test('manually server control', async () => {

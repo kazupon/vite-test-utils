@@ -16,6 +16,10 @@ import type { Browser, BrowserContextOptions } from 'playwright'
 export async function createBrowser() {
   const ctx = useTestContext()
 
+  if (!ctx.options.browser) {
+    throw new Error('browser feature is not available (is `browser` option enabled?)')
+  }
+
   const playwright = await dynamicImport<typeof import('playwright')>('playwright')
 
   /* eslint-disable @typescript-eslint/no-non-null-assertion */

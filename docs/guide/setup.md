@@ -2,7 +2,7 @@
 
 ## Setting up the test context
 
-In each describe block where you are taking advantage of the vite-test-utils helper APIs, you will need to set up the test context before beginning:
+In each describe block where you are taking advantage of the Vite test utils helper APIs, you will need to set up the test context before beginning:
 
 ```ts
 import { setup } from 'vite-test-utils'
@@ -28,7 +28,7 @@ This means it must be run before any other calls to test or it.
 
 The root directory path that is put in your vite application project.
 
-If `vite-test-utils` could not find vite config in `rootdir`, it falls back to `process.cwd()`
+If Vite test utils could not find vite config in `rootdir`, it falls back to `process.cwd()`
 
 - Type: `string`
 - Default: `process.cwd()`
@@ -72,7 +72,7 @@ If that option is specified, it's respected than `viteConfig` option.
 
 The vite server working mode.
 
-If you use `'dev'`, vite-test-utils will start dev server, else you use `'preview'` vite-test-utils will build fixture and start preview server.
+If you use `'dev'`, Vite test utils will start dev server, else you use `'preview'`. Vite test utils will build fixture and start preview server.
 
 - Type: `string`
 - Default: `'dev'`
@@ -86,12 +86,12 @@ Whether to launch a server to respond to requests in the test suite.
 
 #### browser
 
-Under the hood, vite-test-utils uses [`playwright`](https://playwright.dev/) to carry out browser testing.
+Under the hood, Vite test utils uses [`playwright`](https://playwright.dev/) to do browser testing.
 
 If this option is set, a browser will be launched and can be controlled in the subsequent test suite. (More info can be found [here](/api-reference/browser-testing).)
 
 - Type: `boolean`
-- Default: `true`
+- Default: `false`
 
 #### browserOptions
 
