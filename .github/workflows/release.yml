@@ -41,7 +41,7 @@ jobs:
 
       - name: Generate changelog
         run: |
-          npx gh-changelogen --repo=kazupon/gh-changelogen --tag=${{ steps.split.outputs._2 }}
+          gh-changelogen --repo=kazupon/gh-changelogen --tag=${{ steps.split.outputs._2 }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

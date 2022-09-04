@@ -1,6 +1,12 @@
 import { defineConfig } from 'vitepress'
 import { version } from '../../package.json'
 
+let base = '/vite-test-utils/'
+if (process.env.NODE_ENV === 'development') {
+  // NOTE: Workaround for dev server not starting with base option in vitepress v1 alpha 8
+  base = '/'
+}
+
 export default defineConfig({
   lang: 'en-US',
   title: 'Vite Test Utils',
@@ -12,9 +18,14 @@ export default defineConfig({
     reactivityTransform: true
   },
 
-  base: '/vite-test-utils/',
+  base,
 
   themeConfig: {
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/kazupon/vite-test-utils' },
+      { icon: 'twitter', link: 'https://twitter.com/kazu_pon' }
+    ],
+
     nav: nav(),
 
     sidebar: {

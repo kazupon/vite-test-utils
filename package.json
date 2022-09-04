@@ -15,6 +15,7 @@
     "email": "kawakazu80@gmail.com"
   },
   "license": "MIT",
+  "funding": "https://github.com/sponsors/kazupon",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kazupon/vite-test-utils.git"
@@ -54,7 +55,7 @@
     "play:react:test": "pnpm --filter vite-react test",
     "play:svelte": "pnpm --filter vite-svelte dev",
     "play:svelte:test": "pnpm --filter vite-svelte test",
-    "docs:dev": "pnpm --filter @vite-test-utils/docs docs:dev",
+    "docs:dev": "NODE_ENV=development pnpm --filter @vite-test-utils/docs docs:dev",
     "docs:build": "pnpm --filter @vite-test-utils/docs docs:build",
     "docs:serve": "pnpm --filter @vite-test-utils/docs docs:serve",
     "fix": "run-p lint:fix format:fix",
