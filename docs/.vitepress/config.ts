@@ -12,6 +12,8 @@ export default defineConfig({
     reactivityTransform: true
   },
 
+  base: '/vite-test-utils/',
+
   themeConfig: {
     nav: nav(),
 
