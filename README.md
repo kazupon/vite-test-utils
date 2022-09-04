@@ -25,6 +25,19 @@ See the [docs site](https://kazupon.github.io/vite-test-utils/).
 
 If you are interested in contributing to `vite-test-utils`, I highly recommend checking out [the contributing guidelines](/CONTRIBUTING.md) here. You'll find all the relevant information such as [how to make a PR](/CONTRIBUTING.md#pull-request-guidelines), [how to setup development](/CONTRIBUTING.md#development-setup)) etc., there.
 
+## 💖 Special thanks!
+
+This project is inspired, influenced by the following awesome projects:
+
+- 💚 [`nuxt`](https://v3.nuxtjs.org/)
+  - [`@nuxt/test-utils`](https://github.com/nuxt/framework/tree/main/packages/test-utils) package
+- 🟡 [`unjs`](https://github.com/unjs)
+  - use the several packages
+- ⚡ [`vite`](https://vitejs.dev/)
+  - fork from config loading logic
+- ✅ [`vitest`](https://vitest.dev/)
+  - integrate setup / teardown hooks and context API
+
 ## ©️ License
 
 [MIT](https://opensource.org/licenses/MIT)

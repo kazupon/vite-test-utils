@@ -1,4 +1,4 @@
-## 💖 Thanks!
+## 💖 Special Thanks!
 
 This project is inspired, influenced by the following awesome projects:
 
