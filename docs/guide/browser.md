@@ -29,7 +29,7 @@ If `browser: true` is specified, vite test utils will automatically launch a vit
 The host name that is working in test are resolved in the [`server.host`](https://vitejs.dev/config/server-options.html#server-host) or [`preview.host`](https://vitejs.dev/config/preview-options.html#preview-host) by vite.
 
 ::: tip
-By default, the vite dev server is launched. If you want to test your vite application closer to the production environment, specify `mode: 'preview'` to `setup`. Then vite test utils will build your vite application and launch the vite preview server to run the tests.
+**By default, the vite dev server is launched.** If you want to test your vite application closer to the production environment, specify `mode: 'preview'` to `setup`. Then vite test utils will build your vite application and launch the vite preview server to run the tests.
 :::
 
 ## Navigation by resolved URL

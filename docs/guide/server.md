@@ -36,7 +36,3 @@ test('create a todo', async () => {
 If `server: true` is specified, vite test utils will automatically launch a vite server to host your vite application.
 
 Vite test utils provide `$fetch` similar to the fetch API. it's more user-friendly than the fetch API. See here for more details.
-
-## Launch the server manually
-
-TODO:
