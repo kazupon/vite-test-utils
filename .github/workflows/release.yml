@@ -41,6 +41,8 @@ jobs:
 
       - name: Generate changelog
         run: |
+          git restore --source=HEAD --staged --worktree -- package.json pnpm-lock.yaml
+          pnpm install --no-frozen-lockfile
           pnpm changelog --tag=${{ steps.split.outputs._2 }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -49,7 +51,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: main
-          file_pattern: '*.md'
+          file_pattern: 'CHANGELOG.md'
           commit_message: 'chore: sync changelog'
 
       - name: Publish package
