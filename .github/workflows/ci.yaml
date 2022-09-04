@@ -59,7 +59,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7.4.0
+          version: 7.9.3
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
@@ -71,6 +71,7 @@ jobs:
           github.event_name == 'push' &&
           !contains(github.event.head_commit.message, '[skip-release]') &&
           !contains(github.event.head_commit.message, 'chore') &&
+          !startsWith(github.event.head_commit.message, 'release') &&
           !contains(github.event.head_commit.message, 'docs')
         run: ./scripts/release-edge.sh
         env:

@@ -4,6 +4,7 @@ changelog:
       - ignore-for-release
     authors:
       - octocat
+      - renovate[bot]
   categories:
     - title: 🌟 Features
       labels:

@@ -37,3 +37,36 @@
 - name: dependency
   description: Includes dependency fixes
   color: 'ffbce7'
+- name: todo
+  description: todo tasks
+  color: 'c2e0c6'
+- name: duplicate
+  description: This issue or Pull Request already exists
+  color: 'ededed'
+- name: help wanted
+  description: Extra attention is needed
+  color: 'e99695'
+- name: good first issue
+  description: Good for newcomers
+  color: '7057ff'
+- name: 'status: abandoned'
+  description: The issue or Pull Request is wontfix
+  color: '000000'
+- name: 'status: blocked'
+  description: Progress on the issue is Blocked
+  color: 'ee0701'
+- name: 'status: in progress'
+  description: Work in Progress
+  color: 'cccccc'
+- name: 'status: proposal'
+  description: Request for comments
+  color: 'd4c5f9'
+- name: 'status: pull request welcome'
+  description: Welcome to Pull Request
+  color: '2E7733'
+- name: 'status: review needed'
+  description: Request for review
+  color: 'fbca04'
+- name: 'status: need more repro codes or info'
+  description: Lacks enough info to make progress
+  color: 'F9C90A'
