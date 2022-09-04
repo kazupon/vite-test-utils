@@ -16,8 +16,8 @@ export default defineConfig({
     nav: nav(),
 
     sidebar: {
-      '/guide/': sidebarGuide(),
-      '/api/': sidebarAPI()
+      '/guide/': sidebarGuide()
+      // '/api/': sidebarAPI()
     },
 
     footer: {
@@ -30,22 +30,20 @@ export default defineConfig({
 function nav() {
   return [
     { text: 'Guide', link: '/guide/getting-started', activeMatch: '/guide/' },
-    { text: 'API', link: '/api/index', activeMatch: '/api/' }
-    /* TODO:
+    // { text: 'API', link: '/api/index', activeMatch: '/api/' },
     {
       text: version,
       items: [
         {
           text: 'Changelog',
-          link: 'https://github.com/kazupon/vite-test-utils/blob/main/CHANGELOG.md'
+          link: 'https://github.com/kazupon/vite-test-utils/releases'
         },
         {
           text: 'Contributing',
-          link: 'https://github.com/kazupon/vite-test-utils/blob/main/.github/contributing.md'
+          link: 'https://github.com/kazupon/vite-test-utils/blob/main/CONTRIBUTING.md'
         }
       ]
     }
-    */
   ]
 }
 
@@ -73,10 +71,10 @@ function sidebarGuide() {
 
 function sidebarAPI() {
   return [
-    {
-      text: 'API',
-      collapsible: true,
-      items: [{ text: 'API Reference', link: '/api/index' }]
-    }
+    // {
+    //   text: 'API',
+    //   collapsible: true,
+    //   items: [{ text: 'API Reference', link: '/api/index' }]
+    // }
   ]
 }

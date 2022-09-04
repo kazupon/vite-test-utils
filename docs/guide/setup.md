@@ -88,7 +88,7 @@ Whether to launch a server to respond to requests in the test suite.
 
 Under the hood, Vite test utils uses [`playwright`](https://playwright.dev/) to do browser testing.
 
-If this option is set, a browser will be launched and can be controlled in the subsequent test suite. (More info can be found [here](/api-reference/browser-testing).)
+If this option is set, a browser will be launched and can be controlled in the subsequent test suite. (More info can be found [here](/guide/browser).)
 
 - Type: `boolean`
 - Default: `false`
