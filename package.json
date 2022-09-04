@@ -43,6 +43,7 @@
     "build": "unbuild",
     "release": "bumpp --commit \"release: v%s\" --push --tag",
     "prepack": "unbuild",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run test",
     "test:play": "run-p play:*:test",
     "play:vanilla": "pnpm --filter vite-vanilla dev",
@@ -92,7 +93,7 @@
     "playwright": "^1.24.2",
     "prettier": "^2.7.1",
     "ts-prune": "^0.10.3",
-    "typescript": "^4.7.4",
+    "typescript": "^4.8.2",
     "unbuild": "^0.8.0",
     "vitest": "^0.21.0"
   },
