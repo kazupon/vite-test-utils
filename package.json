@@ -41,6 +41,8 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "unbuild",
+    "release": "bumpp --commit \"release: v%s\" --push --tag",
+    "prepack": "unbuild",
     "test": "vitest run test",
     "test:play": "run-p play:*:test",
     "play:vanilla": "pnpm --filter vite-vanilla dev",
@@ -58,7 +60,8 @@
     "format": "prettier --config .prettierrc --ignore-path .prettierignore --list-different '**/*.{js,ts,css,json,html}'",
     "format:fix": "pnpm format --write",
     "lint": "eslint --config .eslintrc.cjs --ext .js,.ts,.vue,.jsx,.tsx,.svelte,.json .",
-    "lint:fix": "pnpm lint --fix"
+    "lint:fix": "pnpm lint --fix",
+    "deadcode": "ts-prune --ignore 'src/index' --skip 'src/__tests__'"
   },
   "dependencies": {
     "@intlify/shared": "^9.2.2",
@@ -78,14 +81,17 @@
     "@types/node": "^18.6.3",
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
+    "bumpp": "^8.2.1",
     "c8": "^7.12.0",
     "eslint": "^8.21.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "gh-changelogen": "^0.2.4",
     "lint-staged": "^13.0.3",
     "npm-run-all": "^4.1.5",
     "playwright": "^1.24.2",
     "prettier": "^2.7.1",
+    "ts-prune": "^0.10.3",
     "typescript": "^4.7.4",
     "unbuild": "^0.8.0",
     "vitest": "^0.21.0"

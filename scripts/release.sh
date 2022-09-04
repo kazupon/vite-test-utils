@@ -6,13 +6,12 @@ set -xe
 git restore --source=HEAD --staged --worktree -- package.json pnpm-lock.yaml
 
 # Install pnpm
-pnpm install
+pnpm install --no-frozen-lockfile
 
-# Build packages
-pnpm build
-
-# Bump versions to edge
-npx jiti ./scripts/bump-edge
+# Check edge release
+if [[ ! -z ${EDGE_RELEASE} ]] ; then
+  npx jiti ./scripts/bump-edge
+fi
 
 # Update token
 if [[ ! -z ${NPM_TOKEN} ]] ; then

@@ -20,7 +20,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7.8.0
+          version: 7.9.5
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
@@ -29,6 +29,26 @@ jobs:
         run: pnpm install --no-frozen-lockfile
       - name: Lint
         run: pnpm lint
+  deadcode:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18.x]
+    name: Use Node.js ${{ matrix.node }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.9.5
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'pnpm'
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
+      - name: Detect dead codes
+        run: pnpm deadcode
   test:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -73,6 +93,7 @@ jobs:
           !contains(github.event.head_commit.message, 'chore') &&
           !startsWith(github.event.head_commit.message, 'release') &&
           !contains(github.event.head_commit.message, 'docs')
-        run: ./scripts/release-edge.sh
+        run: ./scripts/release.sh
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+          EDGE_RELEASE: 'true'
