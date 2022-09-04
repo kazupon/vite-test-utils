@@ -1,5 +1,0 @@
-dist
-coverage
-**/fixtures/**
-.svelte-kit
-.vscode/settings.json
