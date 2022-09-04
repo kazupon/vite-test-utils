@@ -16,15 +16,15 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7.9.3
-
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.9.3
 
       - name: Extract version tag
         if: startsWith( github.ref, 'refs/tags/v' )
@@ -41,7 +41,7 @@ jobs:
 
       - name: Generate changelog
         run: |
-          gh-changelogen --repo=kazupon/gh-changelogen --tag=${{ steps.split.outputs._2 }}
+          pnpm changelog --tag=${{ steps.split.outputs._2 }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
