@@ -7,12 +7,14 @@
  * - license: MIT
  */
 
-import { fetch as _fetch, $fetch as _$fetch } from 'ohmyfetch'
-import { getRandomPort, waitForPort } from 'get-port-please'
-import { useTestContext } from './context'
-import { fileURLToPath } from 'node:url'
 import { spawn } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
+
 import createDebug from 'debug'
+import { getRandomPort, waitForPort } from 'get-port-please'
+import { fetch as _fetch, $fetch as _$fetch } from 'ohmyfetch'
+
+import { useTestContext } from './context'
 
 import type { FetchOptions } from 'ohmyfetch'
 

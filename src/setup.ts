@@ -7,11 +7,11 @@
  * - license: MIT
  */
 
+import { createBrowser } from './browser'
 import { createTestContext, setTestContext } from './context'
 import { startServer, stopServer } from './server'
-import { prepareFixture } from './vite'
-import { createBrowser } from './browser'
 import { dynamicImport } from './utils'
+import { prepareFixture } from './vite'
 
 import type { TestOptions } from './types'
 

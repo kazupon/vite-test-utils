@@ -1,5 +1,6 @@
-import { createServer, preview } from 'vite'
 import createDebug from 'debug'
+import { createServer, preview } from 'vite'
+
 import { loadFixture, buildFixture } from './vite'
 
 import type { FixtureContext } from './vite'

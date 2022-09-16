@@ -1,6 +1,6 @@
+import type { ChildProcess } from 'node:child_process'
 import type { Browser, LaunchOptions } from 'playwright'
 import type { UserConfig } from 'vite'
-import type { ChildProcess } from 'node:child_process'
 
 /**
  * The Test Context that is used in test utils

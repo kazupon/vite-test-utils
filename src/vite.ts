@@ -1,15 +1,17 @@
 import { promises as fs } from 'node:fs'
 import { resolve } from 'node:path'
-import { mergeConfig, build, ConfigEnv } from 'vite'
-import pc from 'picocolors'
+
 import createDebug from 'debug'
+import pc from 'picocolors'
+import { mergeConfig, build } from 'vite'
+
 import { useTestContext } from './context'
 import { isExists, loadConfig, mkTmpDir, toCode } from './utils'
 
-import type { UserConfig } from 'vite'
 import type { TestOptions } from './types'
+import type { UserConfig, ConfigEnv } from 'vite'
 
-export type FixtureContext = {
+export interface FixtureContext {
   port: number
   mode: Required<TestOptions>['mode']
   root: string

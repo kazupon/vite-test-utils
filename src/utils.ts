@@ -1,12 +1,13 @@
-import { isAbsolute, dirname, resolve, relative, join, extname } from 'node:path'
-import { pathToFileURL } from 'node:url'
 import { promises as fs, constants as FS_CONSTANTS } from 'node:fs'
 import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
-import { build } from 'esbuild'
-import { normalizePath } from 'vite'
+import { isAbsolute, dirname, resolve, relative, join, extname } from 'node:path'
+import { pathToFileURL } from 'node:url'
+
 import { isArray, isString, isObject, isFunction, isRegExp } from '@intlify/shared'
 import createDebug from 'debug'
+import { build } from 'esbuild'
+import { normalizePath } from 'vite'
 
 import type { UserConfigExport, ConfigEnv, UserConfig } from 'vite'
 
