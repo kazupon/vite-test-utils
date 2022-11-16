@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/kazupon/vite-test-utils/issues"
   },
-  "packageManager": "pnpm@7.16.0",
+  "packageManager": "pnpm@7.16.1",
   "engines": {
     "node": ">= 14.18"
   },
