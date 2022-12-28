@@ -2,8 +2,17 @@
 // for information about these interfaces
 // and what to do when importing types
 declare namespace App {
-  // interface Error {}
-  // interface Locals {}
-  // interface PageData {}
+  interface Locals {
+    userid: string
+  }
+
   // interface Platform {}
+
+  // interface PrivateEnv {}
+
+  // interface PublicEnv {}
+
+  // interface Session {}
+
+  // interface Stuff {}
 }
