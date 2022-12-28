@@ -12,11 +12,11 @@ import { fileURLToPath } from 'node:url'
 
 import createDebug from 'debug'
 import { getRandomPort, waitForPort } from 'get-port-please'
-import { fetch as _fetch, $fetch as _$fetch } from 'ohmyfetch'
+import { fetch as _fetch, $fetch as _$fetch } from 'ofetch'
 
 import { useTestContext } from './context'
 
-import type { FetchOptions } from 'ohmyfetch'
+import type { FetchOptions } from 'ofetch'
 
 const DEBUG = createDebug('vite-test-utils:server')
 
@@ -109,7 +109,7 @@ export function url(path: string) {
  * Low level fetch API
  *
  * @remarks
- * This function is delegated with {@link ohmyfetch https://github.com/unjs/ohmyfetch}
+ * This function is delegated with {@link ofetch https://github.com/unjs/ofetch}
  *
  * @param {string} path - The path of fetch request. you can specify a path starting from root (e.g. `/foo`)
  * @param {any} [options] - The options of fetch request, optional
@@ -126,7 +126,7 @@ type _ResponseType = 'blob' | 'text' | 'arrayBuffer' | 'json'
  * Hight level fetch API
  *
  * @remarks
- * This function is delegated with {@link ohmyfetch https://github.com/unjs/ohmyfetch}
+ * This function is delegated with {@link ofetch https://github.com/unjs/ofetch}
  *
  * @param {string} path - The path of fetch request
  * @param {FetchOptions} [options] - The options of fetch request, optional
