@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "typescript": "^4.6.4",
-    "vite": "^3.0.0",
+    "vite": "^4.0.0",
     "playwright": "^1.24.0",
     "vite-test-utils": "npm:vite-test-utils-edge@latest",
     "vitest": "^0.21.0"

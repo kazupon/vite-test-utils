@@ -4,6 +4,10 @@ If your vite application has server (e.g.[svelte-kit](https://kit.svelte.dev/)),
 
 To test in a server, you need specify `server: true` in `setup`, and then it using the several helper APIs.
 
+## Example
+
+You can check the [vite-svelte-old](https://github.com/kazupon/vite-test-utils/tree/main/playground/vite-svelte-old)
+
 ## Endpoint testing
 
 The following is a test of svelte-kit endpoints:
