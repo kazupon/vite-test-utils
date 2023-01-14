@@ -71,7 +71,7 @@
     "debug": "^4.3.4",
     "defu": "^6.1.1",
     "esbuild": "^0.17.0",
-    "get-port-please": "^2.5.0",
+    "get-port-please": "^3.0.0",
     "jiti": "^1.16.0",
     "ofetch": "^1.0.0",
     "picocolors": "^1.0.0",
