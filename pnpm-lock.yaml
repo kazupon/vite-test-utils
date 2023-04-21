@@ -105,7 +105,7 @@ importers:
       playwright: 1.29.1
       typescript: 4.9.4
       vite: 4.0.3
-      vite-test-utils: /vite-test-utils-edge/0.5.3-27870316.68a8a06
+      vite-test-utils: /vite-test-utils-edge/0.6.0-27897355.258f4f7
       vitest: 0.26.2
 
   playground/vite-svelte:
@@ -135,7 +135,7 @@ importers:
       tslib: 2.4.1
       typescript: 4.9.4
       vite: 4.0.3
-      vite-test-utils: /vite-test-utils-edge/0.5.3-27870316.68a8a06
+      vite-test-utils: /vite-test-utils-edge/0.6.0-27897355.258f4f7
       vitest: 0.26.2
 
   playground/vite-vanilla:
@@ -149,14 +149,14 @@ importers:
       playwright: 1.29.1
       typescript: 4.9.4
       vite: 4.0.3
-      vite-test-utils: /vite-test-utils-edge/0.5.3-27870316.68a8a06
+      vite-test-utils: /vite-test-utils-edge/0.6.0-27897355.258f4f7
       vitest: 0.26.2
 
   playground/vite-vue:
     specifiers:
       '@types/node': ^18.11.18
       '@vitejs/plugin-vue': ^4.0.0
-      '@vue/tsconfig': ^0.1.3
+      '@vue/tsconfig': ^0.2.0
       npm-run-all: ^4.1.5
       playwright: ^1.29.1
       typescript: ^4.9.4
@@ -172,12 +172,12 @@ importers:
     devDependencies:
       '@types/node': 18.11.18
       '@vitejs/plugin-vue': 4.0.0_vite@4.0.3+vue@3.2.45
-      '@vue/tsconfig': 0.1.3_@types+node@18.11.18
+      '@vue/tsconfig': 0.2.0
       npm-run-all: 4.1.5
       playwright: 1.29.1
       typescript: 4.9.4
       vite: 4.0.3_@types+node@18.11.18
-      vite-test-utils: /vite-test-utils-edge/0.5.3-27870316.68a8a06_@types+node@18.11.18
+      vite-test-utils: /vite-test-utils-edge/0.6.0-27897355.258f4f7_@types+node@18.11.18
       vitest: 0.26.2
       vue-tsc: 1.0.18_typescript@4.9.4
 
@@ -586,7 +586,6 @@ packages:
     cpu: [arm]
     os: [android]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/android-arm64/0.16.12:
@@ -603,7 +602,6 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/android-x64/0.16.12:
@@ -620,7 +618,6 @@ packages:
     cpu: [x64]
     os: [android]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/darwin-arm64/0.16.12:
@@ -637,7 +634,6 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/darwin-x64/0.16.12:
@@ -654,7 +650,6 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/freebsd-arm64/0.16.12:
@@ -671,7 +666,6 @@ packages:
     cpu: [arm64]
     os: [freebsd]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/freebsd-x64/0.16.12:
@@ -688,7 +682,6 @@ packages:
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-arm/0.16.12:
@@ -705,7 +698,6 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-arm64/0.16.12:
@@ -722,7 +714,6 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-ia32/0.16.12:
@@ -739,7 +730,6 @@ packages:
     cpu: [ia32]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-loong64/0.15.18:
@@ -765,7 +755,6 @@ packages:
     cpu: [loong64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-mips64el/0.16.12:
@@ -782,7 +771,6 @@ packages:
     cpu: [mips64el]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-ppc64/0.16.12:
@@ -799,7 +787,6 @@ packages:
     cpu: [ppc64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-riscv64/0.16.12:
@@ -816,7 +803,6 @@ packages:
     cpu: [riscv64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-s390x/0.16.12:
@@ -833,7 +819,6 @@ packages:
     cpu: [s390x]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-x64/0.16.12:
@@ -850,7 +835,6 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/netbsd-x64/0.16.12:
@@ -867,7 +851,6 @@ packages:
     cpu: [x64]
     os: [netbsd]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/openbsd-x64/0.16.12:
@@ -884,7 +867,6 @@ packages:
     cpu: [x64]
     os: [openbsd]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/sunos-x64/0.16.12:
@@ -901,7 +883,6 @@ packages:
     cpu: [x64]
     os: [sunos]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/win32-arm64/0.16.12:
@@ -918,7 +899,6 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/win32-ia32/0.16.12:
@@ -935,7 +915,6 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/win32-x64/0.16.12:
@@ -952,7 +931,6 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@eslint/eslintrc/1.4.0:
@@ -1673,15 +1651,8 @@ packages:
   /@vue/shared/3.2.45:
     resolution: {integrity: sha512-Ewzq5Yhimg7pSztDV+RH1UDKBzmtqieXQlpTVm2AwraoRL/Rks96mvd8Vgi7Lj+h+TH8dv7mXD3FRZR3TUvbSg==}
 
-  /@vue/tsconfig/0.1.3_@types+node@18.11.18:
-    resolution: {integrity: sha512-kQVsh8yyWPvHpb8gIc9l/HIDiiVUy1amynLNpCy8p+FoCiZXCo6fQos5/097MmnNZc9AtseDsCrfkhqCrJ8Olg==}
-    peerDependencies:
-      '@types/node': '*'
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-    dependencies:
-      '@types/node': 18.11.18
+  /@vue/tsconfig/0.2.0:
+    resolution: {integrity: sha512-T1bRYMEanZ7PYjUQskcI5wWyXoUKnubjlySPKaDYcU+bPLaupxSYSwOTEXr7D91SMC1K6tnbKmWj0Z+2F5VSzg==}
     dev: true
 
   /@vueuse/core/9.9.0_vue@3.2.45:
@@ -2617,7 +2588,6 @@ packages:
       '@esbuild/win32-arm64': 0.17.0
       '@esbuild/win32-ia32': 0.17.0
       '@esbuild/win32-x64': 0.17.0
-    dev: false
 
   /escalade/3.1.1:
     resolution: {integrity: sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==}
@@ -2991,10 +2961,6 @@ packages:
       universalify: 2.0.0
     dev: true
 
-  /fs-memo/1.2.0:
-    resolution: {integrity: sha512-YEexkCpL4j03jn5SxaMHqcO6IuWuqm8JFUYhyCep7Ao89JIYmB8xoKhK7zXXJ9cCaNXpyNH5L3QtAmoxjoHW2w==}
-    dev: true
-
   /fs.realpath/1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
@@ -3045,15 +3011,8 @@ packages:
       has-symbols: 1.0.3
     dev: true
 
-  /get-port-please/2.6.1:
-    resolution: {integrity: sha512-4PDSrL6+cuMM1xs6w36ZIkaKzzE0xzfVBCfebHIJ3FE8iB9oic/ECwPw3iNiD4h1AoJ5XLLBhEviFAVrZsDC5A==}
-    dependencies:
-      fs-memo: 1.2.0
-    dev: true
-
   /get-port-please/3.0.1:
     resolution: {integrity: sha512-R5pcVO8Z1+pVDu8Ml3xaJCEkBiiy1VQN9za0YqH8GIi1nIqD4IzQhzY6dDzMRtdS1lyiGlucRzm8IN8wtLIXng==}
-    dev: false
 
   /get-stream/3.0.0:
     resolution: {integrity: sha512-GlhdIUuVakc8SJ6kK0zAFbiGzRFzNnY4jUuEbV9UROo4Y+0Ny4fjvcZFVTeDA4odpFyOQzaw6hXukJSq/f28sQ==}
@@ -5040,15 +4999,15 @@ packages:
       - terser
     dev: true
 
-  /vite-test-utils-edge/0.5.3-27870316.68a8a06:
-    resolution: {integrity: sha512-0SJ0kA2McP6lXLy/kpVkznG/SPThorDbbfA1d/NrFMXwcF3xzlk3gYQueTvCE+4Vpkd64YsZhyHUYX/FHdRV+g==}
+  /vite-test-utils-edge/0.6.0-27897355.258f4f7:
+    resolution: {integrity: sha512-Do1VXK2ymvU4ro3DpaZkb97Nrs5t7VqcHDwISyYg0HI+1ALBhoKtVTFlLp5tmTjD8+iHY1k9wMrQTy976NRBhQ==}
     engines: {node: '>= 14.18'}
     dependencies:
       '@intlify/shared': 9.2.2
       debug: 4.3.4
       defu: 6.1.1
-      esbuild: 0.16.12
-      get-port-please: 2.6.1
+      esbuild: 0.17.0
+      get-port-please: 3.0.1
       jiti: 1.16.0
       ofetch: 1.0.0
       picocolors: 1.0.0
@@ -5063,15 +5022,15 @@ packages:
       - terser
     dev: true
 
-  /vite-test-utils-edge/0.5.3-27870316.68a8a06_@types+node@18.11.18:
-    resolution: {integrity: sha512-0SJ0kA2McP6lXLy/kpVkznG/SPThorDbbfA1d/NrFMXwcF3xzlk3gYQueTvCE+4Vpkd64YsZhyHUYX/FHdRV+g==}
+  /vite-test-utils-edge/0.6.0-27897355.258f4f7_@types+node@18.11.18:
+    resolution: {integrity: sha512-Do1VXK2ymvU4ro3DpaZkb97Nrs5t7VqcHDwISyYg0HI+1ALBhoKtVTFlLp5tmTjD8+iHY1k9wMrQTy976NRBhQ==}
     engines: {node: '>= 14.18'}
     dependencies:
       '@intlify/shared': 9.2.2
       debug: 4.3.4
       defu: 6.1.1
-      esbuild: 0.16.12
-      get-port-please: 2.6.1
+      esbuild: 0.17.0
+      get-port-please: 3.0.1
       jiti: 1.16.0
       ofetch: 1.0.0
       picocolors: 1.0.0
