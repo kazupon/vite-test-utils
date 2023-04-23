@@ -156,7 +156,7 @@ importers:
     specifiers:
       '@types/node': ^18.11.18
       '@vitejs/plugin-vue': ^4.0.0
-      '@vue/tsconfig': ^0.2.0
+      '@vue/tsconfig': ^0.3.0
       npm-run-all: ^4.1.5
       playwright: ^1.29.1
       typescript: ^4.9.4
@@ -172,7 +172,7 @@ importers:
     devDependencies:
       '@types/node': 18.11.18
       '@vitejs/plugin-vue': 4.0.0_vite@4.0.3+vue@3.2.45
-      '@vue/tsconfig': 0.2.0
+      '@vue/tsconfig': 0.3.0
       npm-run-all: 4.1.5
       playwright: 1.29.1
       typescript: 4.9.4
@@ -1651,8 +1651,8 @@ packages:
   /@vue/shared/3.2.45:
     resolution: {integrity: sha512-Ewzq5Yhimg7pSztDV+RH1UDKBzmtqieXQlpTVm2AwraoRL/Rks96mvd8Vgi7Lj+h+TH8dv7mXD3FRZR3TUvbSg==}
 
-  /@vue/tsconfig/0.2.0:
-    resolution: {integrity: sha512-T1bRYMEanZ7PYjUQskcI5wWyXoUKnubjlySPKaDYcU+bPLaupxSYSwOTEXr7D91SMC1K6tnbKmWj0Z+2F5VSzg==}
+  /@vue/tsconfig/0.3.0:
+    resolution: {integrity: sha512-q/6xf5nbmCcJ5jTzJapIPRiBfJGunfuKh0jvl3o/25Wn93ZHkiYTB+rR0pj+2lZ9cCrkK/f4JLuhe4jGLwtwMw==}
     dev: true
 
   /@vueuse/core/9.9.0_vue@3.2.45:
