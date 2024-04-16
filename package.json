@@ -70,7 +70,7 @@
     "@intlify/shared": "^9.2.2",
     "debug": "^4.3.4",
     "defu": "^6.1.1",
-    "esbuild": "^0.19.0",
+    "esbuild": "^0.20.0",
     "get-port-please": "^3.0.0",
     "jiti": "^1.16.0",
     "ofetch": "^1.0.0",
