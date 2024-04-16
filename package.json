@@ -93,7 +93,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "gh-changelogen": "^0.2.8",
     "lint-staged": "^13.1.0",
-    "npm-run-all": "^4.1.5",
+    "npm-run-all2": "^5.0.0",
     "playwright": "^1.29.1",
     "prettier": "^2.8.1",
     "ts-prune": "^0.10.3",
