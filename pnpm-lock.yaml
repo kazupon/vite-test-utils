@@ -35,7 +35,7 @@ importers:
       ofetch: ^1.0.0
       picocolors: ^1.0.0
       playwright: ^1.29.1
-      prettier: ^2.8.1
+      prettier: ^3.0.0
       ts-prune: ^0.10.3
       typescript: ^4.9.4
       unbuild: ^1.0.2
@@ -64,12 +64,12 @@ importers:
       eslint-config-prettier: 8.5.0_eslint@8.30.0
       eslint-import-resolver-typescript: 3.5.2_2lbwmhbr7bncddqbzzpg77o75m
       eslint-plugin-import: 2.26.0_wspzxxdxgd6sryq2cmxnia3diy
-      eslint-plugin-prettier: 4.2.1_kl4pe43v5b43npmso5hoplpbyi
+      eslint-plugin-prettier: 4.2.1_fsi2wcinahlqaljhktk465bmty
       gh-changelogen: 0.2.8
       lint-staged: 13.1.0
       npm-run-all2: 5.0.2
       playwright: 1.29.1
-      prettier: 2.8.1
+      prettier: 3.1.1
       ts-prune: 0.10.3
       typescript: 4.9.4
       unbuild: 1.0.2
@@ -2966,7 +2966,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-prettier/4.2.1_kl4pe43v5b43npmso5hoplpbyi:
+  /eslint-plugin-prettier/4.2.1_fsi2wcinahlqaljhktk465bmty:
     resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -2979,7 +2979,7 @@ packages:
     dependencies:
       eslint: 8.30.0
       eslint-config-prettier: 8.5.0_eslint@8.30.0
-      prettier: 2.8.1
+      prettier: 3.1.1
       prettier-linter-helpers: 1.0.0
     dev: true
 
@@ -4365,9 +4365,9 @@ packages:
       fast-diff: 1.2.0
     dev: true
 
-  /prettier/2.8.1:
-    resolution: {integrity: sha512-lqGoSJBQNJidqCHE80vqZJHWHRFoNYsSpP9AjFhlhi9ODCJA541svILes/+/1GM3VaL/abZi7cpFzOpdR9UPKg==}
-    engines: {node: '>=10.13.0'}
+  /prettier/3.1.1:
+    resolution: {integrity: sha512-22UbSzg8luF4UuZtzgiUOfcGM8s4tjBv6dJRT7j275NXsy2jb4aJa4NNveul5x4eqlF1wuhuR2RElK71RvmVaw==}
+    engines: {node: '>=14'}
     hasBin: true
     dev: true
 
