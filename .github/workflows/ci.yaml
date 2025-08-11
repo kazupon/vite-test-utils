@@ -60,7 +60,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.23.6
+          version: 6.35.1
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
