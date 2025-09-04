@@ -24,7 +24,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7.9.3
+          version: 7.33.7
 
       - name: Extract version tag
         if: startsWith( github.ref, 'refs/tags/v' )
