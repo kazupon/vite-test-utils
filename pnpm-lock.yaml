@@ -105,7 +105,7 @@ importers:
       playwright: 1.29.1
       typescript: 4.9.4
       vite: 4.0.3
-      vite-test-utils: /vite-test-utils-edge/0.6.0-28554649.4110a2c
+      vite-test-utils: /vite-test-utils-edge/0.6.0-28841382.6cc3b34
       vitest: 0.26.2
 
   playground/vite-svelte:
@@ -135,7 +135,7 @@ importers:
       tslib: 2.4.1
       typescript: 4.9.4
       vite: 4.0.3
-      vite-test-utils: /vite-test-utils-edge/0.6.0-28554649.4110a2c
+      vite-test-utils: /vite-test-utils-edge/0.6.0-28841382.6cc3b34
       vitest: 0.26.2
 
   playground/vite-vanilla:
@@ -149,14 +149,14 @@ importers:
       playwright: 1.29.1
       typescript: 4.9.4
       vite: 4.0.3
-      vite-test-utils: /vite-test-utils-edge/0.6.0-28554649.4110a2c
+      vite-test-utils: /vite-test-utils-edge/0.6.0-28841382.6cc3b34
       vitest: 0.26.2
 
   playground/vite-vue:
     specifiers:
       '@types/node': ^18.11.18
       '@vitejs/plugin-vue': ^4.0.0
-      '@vue/tsconfig': ^0.5.0
+      '@vue/tsconfig': ^0.9.0
       npm-run-all2: ^5.0.0
       playwright: ^1.29.1
       typescript: ^4.9.4
@@ -172,12 +172,12 @@ importers:
     devDependencies:
       '@types/node': 18.11.18
       '@vitejs/plugin-vue': 4.0.0_vite@4.0.3+vue@3.2.45
-      '@vue/tsconfig': 0.5.1
+      '@vue/tsconfig': 0.9.1_prq2uz4lho2pwp6irk4cfkrxwu
       npm-run-all2: 5.0.2
       playwright: 1.29.1
       typescript: 4.9.4
       vite: 4.0.3_@types+node@18.11.18
-      vite-test-utils: /vite-test-utils-edge/0.6.0-28554649.4110a2c_@types+node@18.11.18
+      vite-test-utils: /vite-test-utils-edge/0.6.0-28841382.6cc3b34_@types+node@18.11.18
       vitest: 0.26.2
       vue-tsc: 1.0.18_typescript@4.9.4
 
@@ -1906,8 +1906,19 @@ packages:
   /@vue/shared/3.2.45:
     resolution: {integrity: sha512-Ewzq5Yhimg7pSztDV+RH1UDKBzmtqieXQlpTVm2AwraoRL/Rks96mvd8Vgi7Lj+h+TH8dv7mXD3FRZR3TUvbSg==}
 
-  /@vue/tsconfig/0.5.1:
-    resolution: {integrity: sha512-VcZK7MvpjuTPx2w6blwnwZAu5/LgBUtejFOi3pPGQFXQN5Ela03FUtd2Qtg4yWGGissVL0dr6Ro1LfOFh+PCuQ==}
+  /@vue/tsconfig/0.9.1_prq2uz4lho2pwp6irk4cfkrxwu:
+    resolution: {integrity: sha512-buvjm+9NzLCJL29KY1j1991YYJ5e6275OiK+G4jtmfIb+z4POywbdm0wXusT9adVWqe0xqg70TbI7+mRx4uU9w==}
+    peerDependencies:
+      typescript: '>= 5.8'
+      vue: ^3.4.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      typescript: 4.9.4
+      vue: 3.2.45
     dev: true
 
   /@vueuse/core/9.9.0_vue@3.2.45:
@@ -5239,8 +5250,8 @@ packages:
       - terser
     dev: true
 
-  /vite-test-utils-edge/0.6.0-28554649.4110a2c:
-    resolution: {integrity: sha512-f9kZVmhqVaU9wBIqaSezPmLA2ynXkqdWeX93EIFQXn/hXoNBsLgDNcUlYM0RdIhxnOu3q0sRxcKkPuHD3KoRJw==}
+  /vite-test-utils-edge/0.6.0-28841382.6cc3b34:
+    resolution: {integrity: sha512-/yehSbAYwDAxqFpHj/SYZ4I/aMeHDtrvqy8fH+d2d/7AaNk54MhRYPqQyEvf5FWFYREG4lNDARILpo2Oo1wruQ==}
     engines: {node: '>= 14.18'}
     dependencies:
       '@intlify/shared': 9.2.2
@@ -5262,8 +5273,8 @@ packages:
       - terser
     dev: true
 
-  /vite-test-utils-edge/0.6.0-28554649.4110a2c_@types+node@18.11.18:
-    resolution: {integrity: sha512-f9kZVmhqVaU9wBIqaSezPmLA2ynXkqdWeX93EIFQXn/hXoNBsLgDNcUlYM0RdIhxnOu3q0sRxcKkPuHD3KoRJw==}
+  /vite-test-utils-edge/0.6.0-28841382.6cc3b34_@types+node@18.11.18:
+    resolution: {integrity: sha512-/yehSbAYwDAxqFpHj/SYZ4I/aMeHDtrvqy8fH+d2d/7AaNk54MhRYPqQyEvf5FWFYREG4lNDARILpo2Oo1wruQ==}
     engines: {node: '>= 14.18'}
     dependencies:
       '@intlify/shared': 9.2.2
