@@ -35,7 +35,7 @@ importers:
       ofetch: ^1.0.0
       picocolors: ^1.0.0
       playwright: ^1.29.1
-      prettier: ^2.8.1
+      prettier: ^3.0.0
       ts-prune: ^0.10.3
       typescript: ^4.9.4
       unbuild: ^1.0.2
@@ -64,12 +64,12 @@ importers:
       eslint-config-prettier: 8.5.0_eslint@8.30.0
       eslint-import-resolver-typescript: 3.5.2_2lbwmhbr7bncddqbzzpg77o75m
       eslint-plugin-import: 2.26.0_wspzxxdxgd6sryq2cmxnia3diy
-      eslint-plugin-prettier: 4.2.1_kl4pe43v5b43npmso5hoplpbyi
+      eslint-plugin-prettier: 4.2.1_4mfo5l2i7t6zt72ymiyy2rxl3m
       gh-changelogen: 0.2.8
       lint-staged: 13.1.0
       npm-run-all2: 5.0.2
       playwright: 1.29.1
-      prettier: 2.8.1
+      prettier: 3.9.6
       ts-prune: 0.10.3
       typescript: 4.9.4
       unbuild: 1.0.2
@@ -105,7 +105,7 @@ importers:
       playwright: 1.29.1
       typescript: 4.9.4
       vite: 4.0.3
-      vite-test-utils: /vite-test-utils-edge/0.6.0-28554649.4110a2c
+      vite-test-utils: /vite-test-utils-edge/0.6.0-28841382.6cc3b34
       vitest: 0.26.2
 
   playground/vite-svelte:
@@ -135,7 +135,7 @@ importers:
       tslib: 2.4.1
       typescript: 4.9.4
       vite: 4.0.3
-      vite-test-utils: /vite-test-utils-edge/0.6.0-28554649.4110a2c
+      vite-test-utils: /vite-test-utils-edge/0.6.0-28841382.6cc3b34
       vitest: 0.26.2
 
   playground/vite-vanilla:
@@ -149,7 +149,7 @@ importers:
       playwright: 1.29.1
       typescript: 4.9.4
       vite: 4.0.3
-      vite-test-utils: /vite-test-utils-edge/0.6.0-28554649.4110a2c
+      vite-test-utils: /vite-test-utils-edge/0.6.0-28841382.6cc3b34
       vitest: 0.26.2
 
   playground/vite-vue:
@@ -177,7 +177,7 @@ importers:
       playwright: 1.29.1
       typescript: 4.9.4
       vite: 4.0.3_@types+node@18.11.18
-      vite-test-utils: /vite-test-utils-edge/0.6.0-28554649.4110a2c_@types+node@18.11.18
+      vite-test-utils: /vite-test-utils-edge/0.6.0-28841382.6cc3b34_@types+node@18.11.18
       vitest: 0.26.2
       vue-tsc: 1.0.18_typescript@4.9.4
 
@@ -2986,7 +2986,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-prettier/4.2.1_kl4pe43v5b43npmso5hoplpbyi:
+  /eslint-plugin-prettier/4.2.1_4mfo5l2i7t6zt72ymiyy2rxl3m:
     resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -2999,7 +2999,7 @@ packages:
     dependencies:
       eslint: 8.30.0
       eslint-config-prettier: 8.5.0_eslint@8.30.0
-      prettier: 2.8.1
+      prettier: 3.9.6
       prettier-linter-helpers: 1.0.0
     dev: true
 
@@ -4385,9 +4385,9 @@ packages:
       fast-diff: 1.2.0
     dev: true
 
-  /prettier/2.8.1:
-    resolution: {integrity: sha512-lqGoSJBQNJidqCHE80vqZJHWHRFoNYsSpP9AjFhlhi9ODCJA541svILes/+/1GM3VaL/abZi7cpFzOpdR9UPKg==}
-    engines: {node: '>=10.13.0'}
+  /prettier/3.9.6:
+    resolution: {integrity: sha512-OpN0zzVdiaiAhxpuuj5efpIS4sY9j7bY6uR5mnj5yPzGkdkjNKSJeUThPb60Jw29QuAZgA4o+/iB49kFiaBX6g==}
+    engines: {node: '>=14'}
     hasBin: true
     dev: true
 
@@ -5239,8 +5239,8 @@ packages:
       - terser
     dev: true
 
-  /vite-test-utils-edge/0.6.0-28554649.4110a2c:
-    resolution: {integrity: sha512-f9kZVmhqVaU9wBIqaSezPmLA2ynXkqdWeX93EIFQXn/hXoNBsLgDNcUlYM0RdIhxnOu3q0sRxcKkPuHD3KoRJw==}
+  /vite-test-utils-edge/0.6.0-28841382.6cc3b34:
+    resolution: {integrity: sha512-/yehSbAYwDAxqFpHj/SYZ4I/aMeHDtrvqy8fH+d2d/7AaNk54MhRYPqQyEvf5FWFYREG4lNDARILpo2Oo1wruQ==}
     engines: {node: '>= 14.18'}
     dependencies:
       '@intlify/shared': 9.2.2
@@ -5262,8 +5262,8 @@ packages:
       - terser
     dev: true
 
-  /vite-test-utils-edge/0.6.0-28554649.4110a2c_@types+node@18.11.18:
-    resolution: {integrity: sha512-f9kZVmhqVaU9wBIqaSezPmLA2ynXkqdWeX93EIFQXn/hXoNBsLgDNcUlYM0RdIhxnOu3q0sRxcKkPuHD3KoRJw==}
+  /vite-test-utils-edge/0.6.0-28841382.6cc3b34_@types+node@18.11.18:
+    resolution: {integrity: sha512-/yehSbAYwDAxqFpHj/SYZ4I/aMeHDtrvqy8fH+d2d/7AaNk54MhRYPqQyEvf5FWFYREG4lNDARILpo2Oo1wruQ==}
     engines: {node: '>= 14.18'}
     dependencies:
       '@intlify/shared': 9.2.2
